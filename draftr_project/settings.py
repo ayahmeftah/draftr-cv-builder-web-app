@@ -147,6 +147,4 @@ CLOUDINARY_STORAGE = {
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-STATIC_URL = "/static/"
-
 MEDIA_URL = "/media/"
