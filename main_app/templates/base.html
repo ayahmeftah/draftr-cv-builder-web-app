@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draftr</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+        </ul>
+    </nav>
+
+    {% block head %}
+    {% endblock %}
+
+    {% block body %}
+    {% endblock %}
+</body>
+</html>
