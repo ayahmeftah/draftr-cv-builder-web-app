@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="resume_name">Resume Name:</label>
+    <input type="text" id="resume_name" name="resume_name" value="{{ form.resume_name.value|default_if_none:'' }}">
+    
+    <h1>Personal Information</h1>
+    
+    <label for="candidate_name">Full Name:</label>
+    <input type="text" id="id_candidate_name" name="candidate_name" value="{{ form.candidate_name.value|default_if_none:'' }}">
+
+    <label for="job_title">Job Title:</label>
+    <input type="text" id="job_title" name="job_title" value="{{ form.job_title.value|default_if_none:'' }}">
+
+    {% if resume.template.candidate_img_available %}
+        <label for="candidate_image">Profile Image:</label>
+        <input type="file" id="candidate_image" name="candidate_image">
+    {% endif %}
+
+    <label for="profile">Profile Summary:</label>
+    <textarea id="profile" name="profile">{{ form.profile.value|default_if_none:'' }}</textarea>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{ form.email.value|default_if_none:'' }}">
+
+    <label for="mobile">Mobile:</label>
+    <input type="text" id="mobile" name="mobile" value="{{ form.mobile.value|default_if_none:'' }}">
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" value="{{ form.location.value|default_if_none:'' }}">
+
+    <label for="linkedin_link">LinkedIn URL:</label>
+    <input type="url" id="linkedin_link" name="linkedin_link" value="{{ form.linkedin_link.value|default_if_none:'' }}">
+
+    <label for="additional_link_name">Additional Link Name:</label>
+    <input type="text" id="additional_link_name" name="additional_link_name" value="{{ form.additional_link_name.value|default_if_none:'' }}">
+
+    <label for="additional_link">Additional Link URL:</label>
+    <input type="url" id="additional_link" name="additional_link" value="{{ form.additional_link.value|default_if_none:'' }}">
+
+    <button type="submit">Next</button>
+</form>
+{% endblock  %}
