@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,300,700" rel="stylesheet" />
+  <link href="{% static 'css/template1.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+  <div class="cv-container">
+    <div class="cv-header">
+      <div class="cv-full-name">
+        <span class="cv-first-name">{{ resume.candidate_name|slice:":resume.candidate_name.find(' ')" }}</span>
+      </div>
+      <span class="cv-position">{{ resume.job_title }}</span>
+      <div class="cv-contact-info">
+        <span class="cv-email">Email: {{ resume.email }}</span>
+        <span class="cv-separator"></span>
+        <span class="cv-phone">Phone: {{ resume.mobile }}</span>
+        {% if resume.linkedin_link %}
+          <span class="cv-separator"></span>
+          <span class="cv-linkedin"><a href="{{ resume.linkedin_link }}">LinkedIn</a></span>
+        {% endif %}
+        {% if resume.additional_link %}
+          <span class="cv-separator"></span>
+          <span class="cv-additional-link"><a href="{{ resume.additional_link }}">{{ resume.additional_link_name }}</a></span>
+        {% endif %}
+      </div>
+      {% if resume.profile %}
+        <div class="cv-about">
+          <div class="cv-section-title">Profile</div>
+          <p class="cv-desc">{{ resume.profile }}</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="cv-details">
+      {% if resume.experiences.exists %}
+        <div class="cv-section">
+          <div class="cv-section-title">Experience</div>
+          <div class="cv-section-list">
+            {% for exp in resume.experiences.all %}
+              <div class="cv-section-list-item">
+                <div class="cv-left">
+                  <div class="cv-name">{{ exp.company }}</div>
+                  {% if resume.location %}
+                    <div class="cv-addr">{{ resume.location }}</div>
+                  {% endif %}
+                  <div class="cv-duration">{{ exp.start_date|date:'M Y' }} - {{ exp.end_date|date:'M Y' }}</div>
+                </div>
+                <div class="cv-right">
+                  <div class="cv-role">{{ exp.role }}</div>
+                  <div class="cv-desc">{{ exp.description }}</div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if resume.educations.exists %}
+        <div class="cv-section">
+          <div class="cv-section-title">Education</div>
+          <div class="cv-section-list">
+            {% for edu in resume.educations.all %}
+              <div class="cv-section-list-item">
+                <div class="cv-left">
+                  <div class="cv-name">{{ edu.school }}</div>
+                  <div class="cv-addr">{{ resume.location }}</div>
+                  <div class="cv-duration">{{ edu.start_date|date:'M Y' }} - {{ edu.end_date|date:'M Y' }}</div>
+                </div>
+                <div class="cv-right">
+                  <div class="cv-degree">{{ edu.degree }}</div>
+                  <div class="cv-desc">{{ edu.description }}</div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if resume.projects.exists %}
+        <div class="cv-section">
+          <div class="cv-section-title">Projects</div>
+          <div class="cv-section-list">
+            {% for project in resume.projects.all %}
+              <div class="cv-section-list-item">
+                <div class="cv-name">{{ project.project_title }}</div>
+                <div class="cv-text">
+                  {{ project.project_description }}
+                  {% if project.project_link %}
+                    <a href="{{ project.project_link }}">link</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if resume.skill_categories.exists %}
+        <div class="cv-section">
+          <div class="cv-section-title">Skills</div>
+          {% for cat in resume.skill_categories.all %}
+            <div class="cv-skills">
+              <div class="cv-skills-category">{{ cat.skill_category_title }}</div>
+              {% for skill in cat.skills.all %}
+                <div class="cv-skills-item">
+                  <span class="cv-skill-name">{{ skill.skill_name }}</span>
+                  <span class="cv-skill-level">{{ skill.level }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if resume.certifications.exists %}
+        <div class="cv-section">
+          <div class="cv-section-title">Certifications</div>
+          <div class="cv-section-list">
+            {% for cert in resume.certifications.all %}
+              <div class="cv-section-list-item">
+                <div class="cv-name">{{ cert.certification_name }}</div>
+                <div class="cv-desc">
+                  Issued by {{ cert.issued_by }}
+                  {% if cert.credential_url %}
+                    (<a href="{{ cert.credential_url }}">link</a>)
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -7,6 +7,7 @@ class Template(models.Model):
     template_name = models.CharField(max_length=100)
     preview_image = models.ImageField(upload_to="cv-templates-images/")
     template_path = models.CharField(max_length=200)
+    candidate_img_available = models.BooleanField(default=False)
 
     class Meta:
         db_table = "cv_templates"

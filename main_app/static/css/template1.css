@@ -1,0 +1,83 @@
+.cv-container {
+    max-width: 700px;
+    background: #fff;
+    margin: 50px auto;
+    box-shadow: 1px 1px 2px #dad7d7;
+    border-radius: 3px;
+    padding: 40px;
+    font-family: 'Lato', sans-serif;
+    color: #222;
+    line-height: 1.6;
+}
+
+.cv-header {
+    margin-bottom: 30px;
+}
+
+.cv-full-name {
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.cv-contact-info {
+    margin-bottom: 20px;
+    font-weight: 300;
+    color: #555;
+}
+
+.cv-separator {
+    display: inline-block;
+    width: 2px;
+    height: 14px;
+    background: #999;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+.cv-about .cv-position {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-right: 10px;
+}
+
+.cv-details .cv-section {
+    margin-bottom: 40px;
+}
+
+.cv-section-title {
+    letter-spacing: 2px;
+    color: #54afe4;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.cv-section-list-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.cv-left {
+    width: 60%;
+}
+
+.cv-right {
+    width: 38%;
+    text-align: right;
+}
+
+.cv-name, .cv-role, .cv-degree {
+    font-weight: bold;
+}
+
+.cv-skills {
+    margin-bottom: 15px;
+}
+
+.cv-skills-item {
+    display: flex;
+    justify-content: space-between;
+}
