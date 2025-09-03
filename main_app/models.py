@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 # Create your models here.
 
 class Template(models.Model):
     template_name = models.CharField(max_length=100)
-    preview_image = models.ImageField(upload_to="cv-templates-images/")
+    preview_image = models.ImageField(upload_to="cv-templates-images/", storage=MediaCloudinaryStorage())
     template_path = models.CharField(max_length=200)
     candidate_img_available = models.BooleanField(default=False)
 
@@ -22,7 +23,7 @@ class Resume(models.Model):
     resume_name = models.CharField(max_length=255)
     candidate_name = models.CharField(max_length=200)
     job_title = models.CharField(max_length=150)
-    candidate_image = models.ImageField(upload_to="candidates/", null=True, blank=True)
+    candidate_image = models.ImageField(upload_to="candidates/", storage=MediaCloudinaryStorage(), null=True, blank=True)
     profile = models.TextField(null=True, blank=True)
     location = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(max_length=255)
