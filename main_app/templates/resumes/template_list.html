@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %} {% endblock %}
+
+{% block body %}
+<h1>Select a CV Template</h1>
+<div class="template-grid">
+    {% for template in templates %}
+        <div class="template-card">
+            <img src="{{ template.preview_image.url }}" alt="{{ template.template_name }}" width="200">
+            <p>{{ template.template_name }}</p>
+            <a href="#">Use this Template</a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
