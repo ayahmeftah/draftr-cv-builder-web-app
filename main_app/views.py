@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from . import models, forms
 
 # Create your views here.
+
 
 class HomePageView(TemplateView):
     template_name = "homepage.html"
@@ -33,10 +34,19 @@ def select_template(request, template_id):
     resume = models.Resume.objects.create(
         user=request.user,
         template=template,
-        resume_name= "",
+        resume_name="",
         candidate_name=request.user.get_full_name() or request.user.username,
         email=request.user.email,
-        mobile=""
-        )
-    
+        mobile="")
+
     return redirect('resume_personal_info', resume_id=resume.id)
+
+
+class PersonalInfoView(UpdateView):
+    model = models.Resume
+    form_class = forms.ResumePersonalForm
+    template_name = "resumes/personal_info_form.html"
+    pk_url_kwarg = "resume_id"
+
+    def get_success_url(self):
+        return reverse_lazy('resume_preview', kwargs={'resume_id': self.object.id})
