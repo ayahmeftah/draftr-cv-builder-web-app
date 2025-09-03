@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
+from . import models, forms
 
 # Create your views here.
 
@@ -18,3 +19,9 @@ class SignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect(self.success_url)
+    
+    
+class TemplateListView(ListView):
+    model = models.Template
+    template_name = "resumes/template_list.html"
+    context_object_name = "templates"
