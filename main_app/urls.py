@@ -8,4 +8,5 @@ urlpatterns = [
     path("resumes/", views.TemplateListView.as_view(), name="template_list"),
     path("resumes/select/<int:template_id>/", views.select_template, name="select_template"),
     path("resumes/<int:resume_id>/personal/", views.PersonalInfoView.as_view(), name="resume_personal_info"),
+    path("resumes/<int:resume_id>/preview/", views.ResumePreviewView.as_view(), name="resume_preview"),
 ]

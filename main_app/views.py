@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
@@ -50,3 +50,10 @@ class PersonalInfoView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('resume_preview', kwargs={'resume_id': self.object.id})
+
+
+class ResumePreviewView(DetailView):
+    model = models.Resume
+    template_name = "cv_templates/template1.html"
+    pk_url_kwarg = "resume_id"
+    context_object_name = "resume"
