@@ -10,7 +10,7 @@
         <div class="template-card">
             <img src="{{ template.preview_image.url }}" alt="{{ template.template_name }}" width="200">
             <p>{{ template.template_name }}</p>
-            <a href="#">Use this Template</a>
+            <a href="{% url 'select_template' template.id %}">Use this Template</a>
         </div>
     {% endfor %}
 </div>
