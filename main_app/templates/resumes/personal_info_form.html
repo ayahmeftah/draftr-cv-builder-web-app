@@ -5,19 +5,19 @@
     {% csrf_token %}
 
     <label for="resume_name">Resume Name:</label>
-    <input type="text" id="resume_name" name="resume_name" value="{{ form.resume_name.value|default_if_none:'' }}">
+    <input type="text" id="resume_name" name="resume_name" value="{{ form.resume_name.value|default_if_none:'' }}" required>
     
     <h1>Personal Information</h1>
     
     <label for="candidate_name">Full Name:</label>
-    <input type="text" id="id_candidate_name" name="candidate_name" value="{{ form.candidate_name.value|default_if_none:'' }}">
+    <input type="text" id="candidate_name" name="candidate_name" value="{{ form.candidate_name.value|default_if_none:'' }}" required>
 
     <label for="job_title">Job Title:</label>
-    <input type="text" id="job_title" name="job_title" value="{{ form.job_title.value|default_if_none:'' }}">
+    <input type="text" id="job_title" name="job_title" value="{{ form.job_title.value|default_if_none:'' }}" required>
 
     {% if resume.template.candidate_img_available %}
-        <label for="candidate_image">Profile Image:</label>
-        <input type="file" id="candidate_image" name="candidate_image">
+        <label for="candidate_image">Applicant Image:</label>
+        <input type="file" id="candidate_image" name="candidate_image" required>
     {% endif %}
 
     <label for="profile">Profile Summary:</label>
