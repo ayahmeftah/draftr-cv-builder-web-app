@@ -35,7 +35,7 @@ def select_template(request, template_id):
         user=request.user,
         template=template,
         resume_name="",
-        candidate_name=request.user.get_full_name() or request.user.username,
+        candidate_name="",
         email=request.user.email,
         mobile="")
 
