@@ -32,7 +32,7 @@ class ResumePersonalForm(forms.ModelForm):
     class Meta:
         model = models.Resume
         fields = [
-            'candidate_name', 'job_title', 'candidate_image', 'profile',
+            'candidate_name', 'resume_name','job_title', 'candidate_image', 'profile',
             'location', 'email', 'mobile', 'linkedin_link',
             'additional_link_name', 'additional_link'
         ]
