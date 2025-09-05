@@ -17,13 +17,17 @@
           <a href="{% url 'skill_add' resume.id category.id %}">+ Add Skill</a>
           <ul>
             {% for skill in category.skills.all %}
-              <li>{{ skill.skill_name }} - {{ skill.level }}</li>
+              <li>
+                {{ skill.skill_name }} - {{ skill.level }}
+                <form method="post" action="{% url 'skill_delete' resume.id skill.id %}">
+                  {% csrf_token %}
+                  <button type="submit">Delete</button>
+                </form>
+              </li>
             {% empty %}
               <li>No skills yet.</li>
             {% endfor %}
           </ul>
-
-          
         </li>
       {% endfor %}
     </ul>

@@ -250,3 +250,14 @@ class SkillCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         category = get_object_or_404(models.SkillCategory, id=self.kwargs['category_id'])
         return category.resume.user == self.request.user
+    
+class SkillDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = models.Skill
+    pk_url_kwarg = "skill_id"
+
+    def get_success_url(self):
+        return redirect("skill_list", resume_id=self.object.skill_category.resume.id).url
+
+    def test_func(self):
+        skill = self.get_object()
+        return skill.skill_category.resume.user == self.request.user
