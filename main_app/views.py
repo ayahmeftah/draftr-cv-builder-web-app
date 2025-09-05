@@ -261,3 +261,21 @@ class SkillDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         skill = self.get_object()
         return skill.skill_category.resume.user == self.request.user
+    
+class SkillUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = models.Skill
+    form_class = forms.SkillForm
+    template_name = "skills/skill_form.html"
+    pk_url_kwarg = "skill_id"
+
+    def get_success_url(self):
+        return redirect("skill_list", resume_id=self.object.skill_category.resume.id).url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = self.object.skill_category
+        return context
+
+    def test_func(self):
+        skill = self.get_object()
+        return skill.skill_category.resume.user == self.request.user
