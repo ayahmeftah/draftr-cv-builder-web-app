@@ -197,3 +197,26 @@ class ExperienceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         experience = self.get_object()
         return experience.resume.user == self.request.user
+    
+
+# Skill Category Views
+
+class SkillCategoryCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = models.SkillCategory
+    form_class = forms.SkillCategoryForm
+    template_name = "skills/skill_category_form.html"
+
+    def form_valid(self, form):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        form.instance.resume = resume
+        form.save()
+        return redirect("skill_list", resume_id=resume.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        return context
+
+    def test_func(self):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        return resume.user == self.request.user
