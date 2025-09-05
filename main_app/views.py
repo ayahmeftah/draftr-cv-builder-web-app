@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DetailView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DetailView, DeleteView
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from . import models, forms
@@ -82,3 +82,10 @@ class EducationListView(ListView):
         context = super().get_context_data(**kwargs)
         context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
         return context
+    
+class EducationDeleteView(DeleteView):
+    model = models.Education
+    pk_url_kwarg = "education_id"
+
+    def get_success_url(self):
+        return redirect("education_list", resume_id=self.object.resume.id).url

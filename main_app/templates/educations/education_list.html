@@ -1,32 +1,34 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block head %}{% endblock  %}
-
+{% block head %}
+{% endblock %}
 
 {% block body %}
-<h2>Education</h2>
+  <h2>Education</h2>
 
-<a href="{% url 'education_add' resume.id %}">Add Education</a>
+  <a href="{% url 'education_add' resume.id %}">Add Education</a>
 
-<ul>
-  {% for edu in educations %}
-    <li>
-      {{ edu.degree }} at {{ edu.school }}
-      ({{ edu.start_date|date:"Y" }} – 
-      {% if edu.is_current %}
-        Present
-      {% else %}
-        {{ edu.end_date|date:"Y" }}
-      {% endif %})
-    </li>
-  {% empty %}
-    <li>No education added yet.</li>
-  {% endfor %}
-</ul>
+  <ul>
+    {% for edu in educations %}
+      <li>
+        {{ edu.degree }} at {{ edu.school }}
+        ({{ edu.start_date|date:'Y' }} –{% if edu.is_current %}
+          Present
+        {% else %}
+          {{ edu.end_date|date:'Y' }}
+        {% endif %})
+        <form method="post" action="{% url 'education_delete' resume.id edu.id %}">
+          {% csrf_token %}
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    {% empty %}
+      <li>No education added yet.</li>
+    {% endfor %}
+  </ul>
 
-<div>
-  <a href="{% url 'resume_personal_info' resume.id %}">Back</a>
-  <a href="{% url 'experience_list' resume.id %}">Next</a>
-</div>
-
-{% endblock  %}
+  <div>
+    <a href="{% url 'resume_personal_info' resume.id %}">Back</a>
+    {% comment %} <a href="{% url 'experience_list' resume.id %}">Next</a> {% endcomment %}
+  </div>
+{% endblock %}

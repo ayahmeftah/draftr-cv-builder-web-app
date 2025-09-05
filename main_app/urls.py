@@ -14,4 +14,5 @@ urlpatterns = [
     # Education
     path("resume/<int:resume_id>/education/", views.EducationListView.as_view(), name="education_list"),
     path("resume/<int:resume_id>/education/add/", views.EducationCreateView.as_view(), name="education_add"),
+    path("resume/<int:resume_id>/education/<int:education_id>/delete/", views.EducationDeleteView.as_view(), name="education_delete"),
 ]
