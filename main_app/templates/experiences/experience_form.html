@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}{% endblock  %}
+
+{% block body %}
+  <h2>
+    {% if experience %}
+      Edit Experience
+    {% else %}
+      Add Experience
+    {% endif %}
+  </h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <label>Company:</label>
+    <input type="text" name="company" value="{{ form.company.value|default_if_none:'' }}" />
+
+    <label>Role:</label>
+    <input type="text" name="role" value="{{ form.role.value|default_if_none:'' }}" />
+
+    <label>Start Date:</label>
+    <input type="date" name="start_date" value="{{ form.start_date.value|default_if_none:'' }}" />
+
+    <label>End Date:</label>
+    <input type="date" name="end_date" value="{{ form.end_date.value|default_if_none:'' }}" />
+
+    <label>Currently Working Here:</label>
+    <input type="checkbox" name="is_current" {% if form.is_current.value %}checked{% endif %} />
+
+    <label>Description:</label>
+    <textarea name="description">{{ form.description.value|default_if_none:'' }}</textarea>
+
+    <button type="submit">Save</button>
+    <a href="{% url 'experience_list' resume.id %}">Cancel</a>
+  </form>
+{% endblock %}
