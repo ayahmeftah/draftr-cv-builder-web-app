@@ -35,12 +35,14 @@ urlpatterns = [
     path("resumes/<int:resume_id>/skills/<int:skill_id>/edit/", views.SkillUpdateView.as_view(), name="skill_edit"),
 
     # Project
-    path("resume/<int:resume_id>/projects/", views.ProjectListView.as_view(), name="project_list"),
-    path("resume/<int:resume_id>/projects/add/", views.ProjectCreateView.as_view(), name="project_add"),
-    path("resume/<int:resume_id>/projects/<int:project_id>/edit/", views.ProjectUpdateView.as_view(), name="project_edit"),
-    path("resume/<int:resume_id>/projects/<int:project_id>/delete/", views.ProjectDeleteView.as_view(), name="project_delete"),
+    path("resumes/<int:resume_id>/projects/", views.ProjectListView.as_view(), name="project_list"),
+    path("resumes/<int:resume_id>/projects/add/", views.ProjectCreateView.as_view(), name="project_add"),
+    path("resumes/<int:resume_id>/projects/<int:project_id>/edit/", views.ProjectUpdateView.as_view(), name="project_edit"),
+    path("resumes/<int:resume_id>/projects/<int:project_id>/delete/", views.ProjectDeleteView.as_view(), name="project_delete"),
 
     # Certification
-    path("resume/<int:resume_id>/certifications/", views.CertificationListView.as_view(), name="certification_list"),
-    path("resume/<int:resume_id>/certifications/add/", views.CertificationCreateView.as_view(), name="certification_add"),
+    path("resumes/<int:resume_id>/certifications/", views.CertificationListView.as_view(), name="certification_list"),
+    path("resumes/<int:resume_id>/certifications/add/", views.CertificationCreateView.as_view(), name="certification_add"),
+    path("resumes/<int:resume_id>/certifications/<int:certification_id>/edit/", views.CertificationUpdateView.as_view(), name="certification_edit"),
+    # path("resumes/<int:resume_id>/certifications/<int:certification_id>/delete/", views.CertificationDeleteView.as_view(), name="certification_delete"),
 ]
