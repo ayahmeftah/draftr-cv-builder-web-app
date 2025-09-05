@@ -14,7 +14,7 @@
       {% for category in categories %}
         <li>
           <strong>{{ category.skill_category_title }}</strong>
-
+          <a href="{% url 'skill_add' resume.id category.id %}">+ Add Skill</a>
           <ul>
             {% for skill in category.skills.all %}
               <li>{{ skill.skill_name }} - {{ skill.level }}</li>
@@ -23,7 +23,7 @@
             {% endfor %}
           </ul>
 
-          {% comment %} <a href="{% url 'skill_add' resume.id category.id %}">+ Add Skill</a> {% endcomment %}
+          
         </li>
       {% endfor %}
     </ul>
