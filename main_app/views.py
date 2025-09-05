@@ -220,3 +220,14 @@ class SkillCategoryCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateVie
     def test_func(self):
         resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
         return resume.user == self.request.user
+    
+# Skill Views
+
+def skill_list(request, resume_id):
+    resume = get_object_or_404(models.Resume, id=resume_id, user=request.user)
+    categories = resume.skill_categories.prefetch_related('skills').all()
+    return render(request, "skills/skill_list.html", {
+        "resume": resume,
+        "categories": categories
+    })
+
