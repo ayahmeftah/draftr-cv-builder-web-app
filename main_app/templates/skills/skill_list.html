@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+  <h2>Skills</h2>
+
+  <a href="{% url 'skill_category_add' resume.id %}">+ Add Skill Category</a>
+
+  {% if categories %}
+    <ul>
+      {% for category in categories %}
+        <li>
+          <strong>{{ category.skill_category_title }}</strong>
+
+          <ul>
+            {% for skill in category.skills.all %}
+              <li>{{ skill.skill_name }} - {{ skill.level }}</li>
+            {% empty %}
+              <li>No skills yet.</li>
+            {% endfor %}
+          </ul>
+
+          {% comment %} <a href="{% url 'skill_add' resume.id category.id %}">+ Add Skill</a> {% endcomment %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No skill categories added yet</p>
+  {% endif %}
+
+  <div>
+    <a href="{% url 'experience_list' resume.id %}">Back</a>
+    <a href="{% url 'resume_preview' resume.id %}">Next</a>
+  </div>
+{% endblock %}
