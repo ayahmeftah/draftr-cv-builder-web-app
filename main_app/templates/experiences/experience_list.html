@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h2>Experiences</h2>
+
+<a href="{% url 'experience_add' resume.id %}">Add Experience</a>
+
+<ul>
+  {% for exp in experiences %}
+    <li>
+      <strong>{{ exp.role }}</strong> at {{ exp.company }} 
+      ({{ exp.start_date|date:"Y" }} - 
+       {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:"Y" }}{% endif %})
+      <br>
+      {{ exp.description }}
+      <br>
+      
+    </li>
+  {% empty %}
+    <li>No experiences added yet.</li>
+  {% endfor %}
+</ul>
+
+<div>
+  <a href="{% url 'education_list' resume.id %}">Back</a>
+  <a href="{% url 'resume_preview' resume.id %}">Next</a>
+</div>
+{% endblock %}
