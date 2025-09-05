@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<h2>
+    {% if object %}
+        Edit Project
+    {% else %}
+        Add Project
+    {% endif %} 
+</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <label for="id_project_title">Project Title:</label>
+  <input type="text" name="project_title" id="id_project_title" value="{{ form.project_title.value|default_if_none:'' }}" required />
+
+  <label for="id_project_description">Description:</label>
+  <textarea name="project_description" id="id_project_description">{{ form.project_description.value|default_if_none:'' }}</textarea>
+
+  <label for="id_project_link">Project Link:</label>
+  <input type="url" name="project_link" id="id_project_link" value="{{ form.project_link.value|default_if_none:'' }}" />
+
+  <button type="submit">
+    {% if object %}
+        Edit Project
+    {% else %}
+        Add Project
+    {% endif %} 
+  </button>
+  <a href="{% url 'project_list' resume.id %}">Cancel</a>
+</form>
+{% endblock %}
