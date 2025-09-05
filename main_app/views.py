@@ -167,3 +167,14 @@ class ExperienceListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
         return context
+    
+class ExperienceDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = models.Experience
+    pk_url_kwarg = "experience_id"
+
+    def get_success_url(self):
+        return redirect("experience_list", resume_id=self.object.resume.id).url
+
+    def test_func(self):
+        experience = self.get_object()
+        return experience.resume.user == self.request.user
