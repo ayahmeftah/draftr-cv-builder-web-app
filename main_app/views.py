@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, CreateView, ListView, UpdateView,
 from django.contrib.auth import login
 from django.urls import reverse_lazy, reverse
 from . import models, forms
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 
@@ -22,14 +23,14 @@ class SignUpView(CreateView):
         return redirect(self.success_url)
 
 
-class TemplateListView(ListView):
+class TemplateListView(LoginRequiredMixin, ListView):
     model = models.Template
     template_name = "resumes/template_list.html"
     context_object_name = "templates"
 
 
 def select_template(request, template_id):
-    template = models.Template.objects.get(pk=template_id)
+    template = get_object_or_404(models.Template, pk=template_id)
     resume = models.Resume.objects.create(
         user=request.user,
         template=template,
@@ -41,7 +42,7 @@ def select_template(request, template_id):
     return redirect('resume_personal_info', resume_id=resume.id)
 
 
-class PersonalInfoView(UpdateView):
+class PersonalInfoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = models.Resume
     form_class = forms.ResumePersonalForm
     template_name = "resumes/personal_info_form.html"
@@ -50,54 +51,69 @@ class PersonalInfoView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('education_list', kwargs={'resume_id': self.object.id})
 
+    def test_func(self):
+        resume = self.get_object()
+        return resume.user == self.request.user
 
-class ResumePreviewView(DetailView):
+class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = models.Resume
     template_name = "cv_templates/template1.html"
     pk_url_kwarg = "resume_id"
     context_object_name = "resume"
-    
+
+    def test_func(self):
+        resume = self.get_object()
+        return resume.user == self.request.user
 
 # Education Views
 
-class EducationCreateView(CreateView):
+class EducationCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = models.Education
     form_class = forms.EducationForm
     template_name = "educations/education_form.html"
 
     def form_valid(self, form):
-        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
         form.instance.resume = resume
         form.save()
         return redirect("education_list", resume_id=resume.id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
         return context
-    
-class EducationListView(ListView):
+
+    def test_func(self):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        return resume.user == self.request.user
+
+class EducationListView(LoginRequiredMixin, ListView):
     model = models.Education
     template_name = "educations/education_list.html"
     context_object_name = "educations"
 
     def get_queryset(self):
-        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
         return models.Education.objects.filter(resume=resume)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
         return context
-    
-class EducationDeleteView(DeleteView):
+
+class EducationDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = models.Education
     pk_url_kwarg = "education_id"
 
     def get_success_url(self):
         return redirect("education_list", resume_id=self.object.resume.id).url
+
+    def test_func(self):
+        education = self.get_object()
+        return education.resume.user == self.request.user
     
-class EducationUpdateView(UpdateView):
+
+class EducationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = models.Education
     form_class = forms.EducationForm
     template_name = "educations/education_form.html"
@@ -110,3 +126,7 @@ class EducationUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context["resume"] = self.object.resume
         return context
+
+    def test_func(self):
+        education = self.get_object()
+        return education.resume.user == self.request.user
