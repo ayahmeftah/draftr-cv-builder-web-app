@@ -41,3 +41,8 @@ class EducationForm(forms.ModelForm):
     class Meta:
         model = models.Education
         fields = ["school", "degree", "start_date", "end_date", "is_current", "description"]
+
+class ExperienceForm(forms.ModelForm):
+    class Meta:
+        model = models.Experience
+        fields = ["company", "role", "start_date", "end_date", "is_current", "description"]
