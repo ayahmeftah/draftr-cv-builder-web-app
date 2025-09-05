@@ -348,3 +348,14 @@ class ProjectListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
         return context
+    
+class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = models.Project
+    pk_url_kwarg = "project_id"
+
+    def get_success_url(self):
+        return redirect("project_list", resume_id=self.object.resume.id).url
+
+    def test_func(self):
+        project = self.get_object()
+        return project.resume.user == self.request.user
