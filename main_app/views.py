@@ -312,4 +312,25 @@ class SkillUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return skill.skill_category.resume.user == self.request.user
     
 
+
 # Project Views
+
+class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = models.Project
+    form_class = forms.ProjectForm
+    template_name = "projects/project_form.html"
+
+    def form_valid(self, form):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        form.instance.resume = resume
+        form.save()
+        return redirect("project_list", resume_id=resume.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        return context
+
+    def test_func(self):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        return resume.user == self.request.user

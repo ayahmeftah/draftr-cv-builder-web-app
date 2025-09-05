@@ -33,4 +33,6 @@ urlpatterns = [
     path("resumes/<int:resume_id>/skill-categories/<int:category_id>/add-skill/", views.SkillCreateView.as_view(), name="skill_add"),
     path("resumes/<int:resume_id>/skills/<int:skill_id>/delete/", views.SkillDeleteView.as_view(), name="skill_delete"),
     path("resumes/<int:resume_id>/skills/<int:skill_id>/edit/", views.SkillUpdateView.as_view(), name="skill_edit"),
+
+    # Project
 ]
