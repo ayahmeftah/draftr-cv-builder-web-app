@@ -221,6 +221,19 @@ class SkillCategoryCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateVie
         resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
         return resume.user == self.request.user
 
+
+class SkillCategoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = models.SkillCategory
+    pk_url_kwarg = "category_id"
+
+    def get_success_url(self):
+        return redirect("skill_list", resume_id=self.object.resume.id).url
+
+    def test_func(self):
+        category = self.get_object()
+        return category.resume.user == self.request.user
+
+
 # Skill Views
 
 def skill_list(request, resume_id):
