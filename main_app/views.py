@@ -48,7 +48,7 @@ class PersonalInfoView(UpdateView):
     pk_url_kwarg = "resume_id"
 
     def get_success_url(self):
-        return reverse_lazy('resume_preview', kwargs={'resume_id': self.object.id})
+        return reverse_lazy('education_list', kwargs={'resume_id': self.object.id})
 
 
 class ResumePreviewView(DetailView):
@@ -61,4 +61,24 @@ class ResumePreviewView(DetailView):
 class EducationCreateView(CreateView):
     model = models.Education
     form_class = forms.EducationForm
-    template_name = "education_form.html"
+    template_name = "educations/education_form.html"
+
+    def form_valid(self, form):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        form.instance.resume = resume
+        form.save()
+        return redirect("education_list", resume_id=resume.id)
+    
+class EducationListView(ListView):
+    model = models.Education
+    template_name = "educations/education_list.html"
+    context_object_name = "educations"
+
+    def get_queryset(self):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        return models.Education.objects.filter(resume=resume)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        return context
