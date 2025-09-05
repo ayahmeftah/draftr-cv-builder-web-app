@@ -28,7 +28,7 @@ urlpatterns = [
 
     path("resumes/<int:resume_id>/skill-categories/add/", views.SkillCategoryCreateView.as_view(), name="skill_category_add"),
     path("resumes/<int:resume_id>/skill-categories/<int:category_id>/delete/", views.SkillCategoryDeleteView.as_view(), name="skill_category_delete"),
-
+    path("resumes/<int:resume_id>/skill-categories/<int:category_id>/edit/", views.SkillCategoryUpdateView.as_view(), name="skill_category_edit"),
 
     path("resumes/<int:resume_id>/skill-categories/<int:category_id>/add-skill/", views.SkillCreateView.as_view(), name="skill_add"),
     path("resumes/<int:resume_id>/skills/<int:skill_id>/delete/", views.SkillDeleteView.as_view(), name="skill_delete"),

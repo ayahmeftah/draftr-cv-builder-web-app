@@ -14,6 +14,7 @@
       {% for category in categories %}
         <li>
           <strong>{{ category.skill_category_title }}</strong>
+          <a href="{% url 'skill_category_edit' resume.id category.id %}">Edit</a>
           <form method="post" action="{% url 'skill_category_delete' resume.id category.id %}">
             {% csrf_token %}
             <button type="submit">Delete</button>
