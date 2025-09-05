@@ -58,6 +58,8 @@ class ResumePreviewView(DetailView):
     context_object_name = "resume"
     
 
+# Education Views
+
 class EducationCreateView(CreateView):
     model = models.Education
     form_class = forms.EducationForm
@@ -86,6 +88,14 @@ class EducationListView(ListView):
 class EducationDeleteView(DeleteView):
     model = models.Education
     pk_url_kwarg = "education_id"
+
+    def get_success_url(self):
+        return redirect("education_list", resume_id=self.object.resume.id).url
+    
+class EducationUpdateView(UpdateView):
+    model = models.Education
+    form_class = forms.EducationForm
+    template_name = "education_form.html"
 
     def get_success_url(self):
         return redirect("education_list", resume_id=self.object.resume.id).url
