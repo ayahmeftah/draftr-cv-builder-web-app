@@ -377,3 +377,8 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         project = self.get_object()
         return project.resume.user == self.request.user
+
+
+
+# Certification Views
+

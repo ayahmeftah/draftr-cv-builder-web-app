@@ -61,3 +61,8 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = models.Project
         fields = ["project_title", "project_description", "project_link"]
+
+class CertificationForm(forms.ModelForm):
+    class Meta:
+        model = models.Certification
+        fields = ["certification_name", "issued_by", "credential_url"]
