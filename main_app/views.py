@@ -359,3 +359,21 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         project = self.get_object()
         return project.resume.user == self.request.user
+    
+class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = models.Project
+    form_class = forms.ProjectForm
+    template_name = "projects/project_form.html"
+    pk_url_kwarg = "project_id"
+
+    def get_success_url(self):
+        return redirect("project_list", resume_id=self.object.resume.id).url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = self.object.resume
+        return context
+
+    def test_func(self):
+        project = self.get_object()
+        return project.resume.user == self.request.user
