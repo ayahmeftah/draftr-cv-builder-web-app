@@ -46,3 +46,13 @@ class ExperienceForm(forms.ModelForm):
     class Meta:
         model = models.Experience
         fields = ["company", "role", "start_date", "end_date", "is_current", "description"]
+
+class SkillCategoryForm(forms.ModelForm):
+    class Meta:
+        model = models.SkillCategory
+        fields = ['skill_category_title']
+
+class SkillForm(forms.ModelForm):
+    class Meta:
+        model = models.Skill
+        fields = ['skill_name', 'level']
