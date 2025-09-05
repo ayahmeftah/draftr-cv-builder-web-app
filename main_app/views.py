@@ -96,6 +96,7 @@ class EducationUpdateView(UpdateView):
     model = models.Education
     form_class = forms.EducationForm
     template_name = "education_form.html"
+    pk_url_kwarg = "education_id"
 
     def get_success_url(self):
         return redirect("education_list", resume_id=self.object.resume.id).url
