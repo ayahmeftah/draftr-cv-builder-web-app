@@ -310,3 +310,6 @@ class SkillUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         skill = self.get_object()
         return skill.skill_category.resume.user == self.request.user
+    
+
+# Project Views

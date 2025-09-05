@@ -56,3 +56,8 @@ class SkillForm(forms.ModelForm):
     class Meta:
         model = models.Skill
         fields = ['skill_name', 'level']
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = models.Project
+        fields = ["project_title", "project_description", "project_link"]
