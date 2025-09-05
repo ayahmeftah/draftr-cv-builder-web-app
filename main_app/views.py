@@ -401,3 +401,17 @@ class CertificationCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateVie
     def test_func(self):
         resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
         return resume.user == self.request.user
+    
+class CertificationListView(LoginRequiredMixin, ListView):
+    model = models.Certification
+    template_name = "certifications/certification_list.html"
+    context_object_name = "certifications"
+
+    def get_queryset(self):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        return models.Certification.objects.filter(resume=resume)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        return context
