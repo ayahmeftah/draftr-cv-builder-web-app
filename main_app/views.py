@@ -70,6 +70,11 @@ class EducationCreateView(CreateView):
         form.instance.resume = resume
         form.save()
         return redirect("education_list", resume_id=resume.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
+        return context
     
 class EducationListView(ListView):
     model = models.Education
@@ -99,4 +104,9 @@ class EducationUpdateView(UpdateView):
     pk_url_kwarg = "education_id"
 
     def get_success_url(self):
-        return reverse("education_list", kwargs={"resume_id": self.object.resume.id})
+        return redirect("education_list", resume_id=self.object.resume.id).url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = self.object.resume
+        return context

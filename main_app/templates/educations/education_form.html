@@ -24,16 +24,22 @@
     <label>Start Date:</label>
     <input type="date" name="start_date" value="{{ form.start_date.value|date:'Y-m-d'|default_if_none:'' }}" />
 
-
     <label>End Date:</label>
     <input type="date" name="end_date" value="{{ form.end_date.value|date:'Y-m-d'|default_if_none:'' }}" />
 
-    <label>Currently Studying Here:</label>
+    <label>Currently Studying Here:</label> 
     <input type="checkbox" name="is_current" {% if form.is_current.value %}checked{% endif %} />
 
     <label>Description:</label>
     <textarea name="description">{{ form.description.value|default_if_none:'' }}</textarea>
 
-    <button type="submit">Save</button>
+    <button type="submit">
+      {% if education %}
+        Save Education
+      {% else %}
+        Add Education
+      {% endif %}
+    </button>
+    <a href="{% url 'education_list' resume.id %}"><button type="button">Cancel</button></a>
   </form>
 {% endblock %}
