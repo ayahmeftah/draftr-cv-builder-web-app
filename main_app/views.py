@@ -220,7 +220,7 @@ class SkillCategoryCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateVie
     def test_func(self):
         resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
         return resume.user == self.request.user
-    
+
 # Skill Views
 
 def skill_list(request, resume_id):
@@ -231,3 +231,22 @@ def skill_list(request, resume_id):
         "categories": categories
     })
 
+class SkillCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = models.Skill
+    form_class = forms.SkillForm
+    template_name = "skills/skill_form.html"
+
+    def form_valid(self, form):
+        category = get_object_or_404(models.SkillCategory, id=self.kwargs['category_id'])
+        form.instance.skill_category = category
+        form.save()
+        return redirect("skill_list", resume_id=category.resume.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = get_object_or_404(models.SkillCategory, id=self.kwargs['category_id'])
+        return context
+
+    def test_func(self):
+        category = get_object_or_404(models.SkillCategory, id=self.kwargs['category_id'])
+        return category.resume.user == self.request.user
