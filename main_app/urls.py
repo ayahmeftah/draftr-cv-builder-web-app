@@ -44,5 +44,5 @@ urlpatterns = [
     path("resumes/<int:resume_id>/certifications/", views.CertificationListView.as_view(), name="certification_list"),
     path("resumes/<int:resume_id>/certifications/add/", views.CertificationCreateView.as_view(), name="certification_add"),
     path("resumes/<int:resume_id>/certifications/<int:certification_id>/edit/", views.CertificationUpdateView.as_view(), name="certification_edit"),
-    # path("resumes/<int:resume_id>/certifications/<int:certification_id>/delete/", views.CertificationDeleteView.as_view(), name="certification_delete"),
+    path("resumes/<int:resume_id>/certifications/<int:certification_id>/delete/", views.CertificationDeleteView.as_view(), name="certification_delete"),
 ]

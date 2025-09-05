@@ -433,3 +433,14 @@ class CertificationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
     def test_func(self):
         cert = self.get_object()
         return cert.resume.user == self.request.user
+    
+class CertificationDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = models.Certification
+    pk_url_kwarg = "certification_id"
+
+    def get_success_url(self):
+        return redirect("certification_list", resume_id=self.object.resume.id).url
+
+    def test_func(self):
+        cert = self.get_object()
+        return cert.resume.user == self.request.user

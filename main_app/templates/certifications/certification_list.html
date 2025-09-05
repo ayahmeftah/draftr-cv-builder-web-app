@@ -18,6 +18,10 @@
         {% endif %}
 
         <a href="{% url 'certification_edit' resume.id cert.id %}">Edit</a>
+        <form method="post" action="{% url 'certification_delete' resume.id cert.id %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
         
       </li>
     {% endfor %}
