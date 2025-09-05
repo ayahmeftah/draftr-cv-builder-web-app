@@ -26,4 +26,5 @@ urlpatterns = [
     # Skill Category and Skill
     path("resumes/<int:resume_id>/skills/", views.skill_list, name="skill_list"),
     path("resumes/<int:resume_id>/skills/add-category/", views.SkillCategoryCreateView.as_view(), name="skill_category_add"),
+    path("resumes/<int:resume_id>/skills/category/<int:category_id>/add-skill/", views.SkillCreateView.as_view(), name="skill_add"),
 ]

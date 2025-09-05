@@ -4,4 +4,29 @@
 {% endblock %}
 
 {% block body %}
+<h2>
+  {% if skill %}
+    Edit Skill
+  {% else %}
+    Add Skill
+  {% endif %}
+</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <label for="skill_name">Skill Name:</label>
+  <input type="text" id="skill_name" name="skill_name" value="{{ form.skill_name.value|default_if_none:'' }}" required />
+
+  <label for="level">Level:</label>
+  <select id="level" name="level" required>
+    <option value="">-- Select Level --</option>
+    <option value="Beginner" {% if form.level.value == "Beginner" %}selected{% endif %}>Beginner</option>
+    <option value="Intermediate" {% if form.level.value == "Intermediate" %}selected{% endif %}>Intermediate</option>
+    <option value="Advanced" {% if form.level.value == "Advanced" %}selected{% endif %}>Advanced</option>
+  </select>
+
+  <button type="submit">Save</button>
+  <a href="{% url 'skill_list' category.resume.id %}">Cancel</a>
+</form>
 {% endblock %}
