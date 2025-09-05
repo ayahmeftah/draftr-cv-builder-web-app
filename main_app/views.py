@@ -334,3 +334,17 @@ class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
         return resume.user == self.request.user
+    
+class ProjectListView(LoginRequiredMixin, ListView):
+    model = models.Project
+    template_name = "projects/project_list.html"
+    context_object_name = "projects"
+
+    def get_queryset(self):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        return models.Project.objects.filter(resume=resume)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        return context
