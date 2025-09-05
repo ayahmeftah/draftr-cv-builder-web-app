@@ -14,6 +14,10 @@
       {% for category in categories %}
         <li>
           <strong>{{ category.skill_category_title }}</strong>
+          <form method="post" action="{% url 'skill_category_delete' resume.id category.id %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+          </form>
           <a href="{% url 'skill_add' resume.id category.id %}">+ Add Skill</a>
           <ul>
             {% for skill in category.skills.all %}
