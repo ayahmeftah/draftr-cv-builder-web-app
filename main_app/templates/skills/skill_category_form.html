@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}{% endblock  %}
+
+{% block body %}
+<h2>
+  {% if category %}
+    Edit Skill Category
+  {% else %}
+    Add Skill Category
+  {% endif %}
+</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <label>Category Title:</label>
+  <input type="text" name="skill_category_title" value="{{ form.skill_category_title.value|default_if_none:'' }}" required />
+
+  <button type="submit">Save</button>
+  <a href="{% url 'skill_list' resume.id %}">Cancel</a>
+</form>
+
+{% endblock %}
