@@ -12,14 +12,14 @@ urlpatterns = [
     path("resumes/<int:resume_id>/preview/", views.ResumePreviewView.as_view(), name="resume_preview"),
     
     # Education
-    path("resume/<int:resume_id>/education/", views.EducationListView.as_view(), name="education_list"),
-    path("resume/<int:resume_id>/education/add/", views.EducationCreateView.as_view(), name="education_add"),
-    path("resume/<int:resume_id>/education/<int:education_id>/delete/", views.EducationDeleteView.as_view(), name="education_delete"),
-    path("resume/<int:resume_id>/education/<int:education_id>/edit/", views.EducationUpdateView.as_view(), name="education_edit"),
+    path("resumes/<int:resume_id>/educations/", views.EducationListView.as_view(), name="education_list"),
+    path("resumes/<int:resume_id>/educations/add/", views.EducationCreateView.as_view(), name="education_add"),
+    path("resumes/<int:resume_id>/educations/<int:education_id>/delete/", views.EducationDeleteView.as_view(), name="education_delete"),
+    path("resumes/<int:resume_id>/educations/<int:education_id>/edit/", views.EducationUpdateView.as_view(), name="education_edit"),
 
     # Experience
-    path("resume/<int:resume_id>/experiences/", views.ExperienceListView.as_view(), name="experience_list"),
-    path("resume/<int:resume_id>/experiences/add/", views.ExperienceCreateView.as_view(), name="experience_add"),
-    path("resume/<int:resume_id>/experiences/<int:experience_id>/delete/", views.ExperienceDeleteView.as_view(), name="experience_delete"),
+    path("resumes/<int:resume_id>/experiences/", views.ExperienceListView.as_view(), name="experience_list"),
+    path("resumes/<int:resume_id>/experiences/add/", views.ExperienceCreateView.as_view(), name="experience_add"),
+    path("resumes/<int:resume_id>/experiences/<int:experience_id>/delete/", views.ExperienceDeleteView.as_view(), name="experience_delete"),
 
 ]
