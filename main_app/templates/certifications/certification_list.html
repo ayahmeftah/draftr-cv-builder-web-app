@@ -17,7 +17,7 @@
           (<a href="{{ cert.credential_url }}" target="_blank">View Credential</a>)
         {% endif %}
 
-        {% comment %} <a href="{% url 'certification_edit' resume.id cert.id %}">Edit</a> {% endcomment %}
+        <a href="{% url 'certification_edit' resume.id cert.id %}">Edit</a>
         
       </li>
     {% endfor %}

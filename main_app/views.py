@@ -415,3 +415,21 @@ class CertificationListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
         return context
+    
+class CertificationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = models.Certification
+    form_class = forms.CertificationForm
+    template_name = "certifications/certification_form.html"
+    pk_url_kwarg = "certification_id"
+
+    def get_success_url(self):
+        return redirect("certification_list", resume_id=self.object.resume.id).url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = self.object.resume
+        return context
+
+    def test_func(self):
+        cert = self.get_object()
+        return cert.resume.user == self.request.user
