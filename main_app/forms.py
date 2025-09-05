@@ -40,4 +40,4 @@ class ResumePersonalForm(forms.ModelForm):
 class EducationForm(forms.ModelForm):
     class Meta:
         model = models.Education
-        fields = ["school", "degree", "start_date", "end_date", "description"]
+        fields = ["school", "degree", "start_date", "end_date", "is_current", "description"]
