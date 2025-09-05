@@ -19,6 +19,7 @@
             {% for skill in category.skills.all %}
               <li>
                 {{ skill.skill_name }} - {{ skill.level }}
+                <a href="{% url 'skill_edit' resume.id skill.id %}">Edit</a>
                 <form method="post" action="{% url 'skill_delete' resume.id skill.id %}">
                   {% csrf_token %}
                   <button type="submit">Delete</button>
