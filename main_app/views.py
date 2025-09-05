@@ -153,3 +153,17 @@ class ExperienceCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
         return resume.user == self.request.user
+    
+class ExperienceListView(LoginRequiredMixin, ListView):
+    model = models.Experience
+    template_name = "experiences/experience_list.html"
+    context_object_name = "experiences"
+
+    def get_queryset(self):
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        return models.Experience.objects.filter(resume=resume)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = get_object_or_404(models.Resume, id=self.kwargs['resume_id'], user=self.request.user)
+        return context
