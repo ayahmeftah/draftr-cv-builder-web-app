@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<h2>Projects</h2>
+
+<a href="{% url 'project_add' resume.id %}">+ Add Project</a>
+
+{% if projects %}
+  <ul>
+    {% for project in projects %}
+      <li>
+        <strong>{{ project.project_title }}</strong>
+        {% if project.project_link %}
+          (<a href="{{ project.project_link }}" target="_blank">Link</a>)
+        {% endif %}
+        <p>{{ project.project_description }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No projects added yet.</p>
+{% endif %}
+
+<div style="margin-top: 20px;">
+  <a href="{% url 'skill_list' resume.id %}">Back</a>
+  <a href="{% url 'resume_preview' resume.id %}">Next</a>
+</div>
+{% endblock %}
