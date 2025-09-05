@@ -18,6 +18,7 @@
             (<a href="{{ project.project_link }}" target="_blank">Link</a>)
           {% endif %}
           <p>{{ project.project_description }}</p>
+          <a href="{% url 'project_edit' resume.id project.id %}">Edit</a>
           <form method="post" action="{% url 'project_delete' resume.id project.id %}">
             {% csrf_token %}
             <button type="submit">Delete</button>

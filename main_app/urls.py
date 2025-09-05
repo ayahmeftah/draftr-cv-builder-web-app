@@ -37,6 +37,6 @@ urlpatterns = [
     # Project
     path("resume/<int:resume_id>/projects/", views.ProjectListView.as_view(), name="project_list"),
     path("resume/<int:resume_id>/projects/add/", views.ProjectCreateView.as_view(), name="project_add"),
-    # path("resume/<int:resume_id>/projects/<int:project_id>/edit/", views.ProjectUpdateView.as_view(), name="project_edit"),
+    path("resume/<int:resume_id>/projects/<int:project_id>/edit/", views.ProjectUpdateView.as_view(), name="project_edit"),
     path("resume/<int:resume_id>/projects/<int:project_id>/delete/", views.ProjectDeleteView.as_view(), name="project_delete"),
 ]
