@@ -21,10 +21,10 @@
     <input type="text" name="role" value="{{ form.role.value|default_if_none:'' }}" />
 
     <label>Start Date:</label>
-    <input type="date" name="start_date" value="{{ form.start_date.value|default_if_none:'' }}" />
+    <input type="date" name="start_date" value="{{ form.start_date.value|date:'Y-m-d'|default_if_none:'' }}" />
 
     <label>End Date:</label>
-    <input type="date" name="end_date" value="{{ form.end_date.value|default_if_none:'' }}" />
+    <input type="date" name="end_date" value="{{ form.end_date.value|date:'Y-m-d'|default_if_none:'' }}" />
 
     <label>Currently Working Here:</label>
     <input type="checkbox" name="is_current" {% if form.is_current.value %}checked{% endif %} />

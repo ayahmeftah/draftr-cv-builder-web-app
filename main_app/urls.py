@@ -21,5 +21,6 @@ urlpatterns = [
     path("resumes/<int:resume_id>/experiences/", views.ExperienceListView.as_view(), name="experience_list"),
     path("resumes/<int:resume_id>/experiences/add/", views.ExperienceCreateView.as_view(), name="experience_add"),
     path("resumes/<int:resume_id>/experiences/<int:experience_id>/delete/", views.ExperienceDeleteView.as_view(), name="experience_delete"),
+    path("resumes/<int:resume_id>/experiences/<int:experience_id>/edit/", views.ExperienceUpdateView.as_view(), name="experience_edit"),
 
 ]

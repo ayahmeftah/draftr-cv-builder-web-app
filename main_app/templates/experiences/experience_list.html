@@ -9,10 +9,10 @@
     {% for exp in experiences %}
       <li>
         <strong>{{ exp.role }}</strong> at {{ exp.company }}
-        ({{ exp.start_date|date:'Y' }} -{% if exp.is_current %}
+        ({{ exp.start_date|date:'M Y' }} -{% if exp.is_current %}
           Present
         {% else %}
-          {{ exp.end_date|date:'Y' }}
+          {{ exp.end_date|date:'M Y' }}
         {% endif %})
         <br />
         {{ exp.description }}
