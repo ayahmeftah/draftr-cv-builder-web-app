@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DetailView, DeleteView
 from django.contrib.auth import login
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from . import models, forms
 
 # Create your views here.
@@ -99,4 +99,4 @@ class EducationUpdateView(UpdateView):
     pk_url_kwarg = "education_id"
 
     def get_success_url(self):
-        return redirect("education_list", resume_id=self.object.resume.id).url
+        return reverse("education_list", kwargs={"resume_id": self.object.resume.id})
