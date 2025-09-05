@@ -178,3 +178,22 @@ class ExperienceDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         experience = self.get_object()
         return experience.resume.user == self.request.user
+    
+
+class ExperienceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = models.Experience
+    form_class = forms.ExperienceForm
+    template_name = "experiences/experience_form.html"
+    pk_url_kwarg = "experience_id"
+
+    def get_success_url(self):
+        return redirect("experience_list", resume_id=self.object.resume.id).url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resume"] = self.object.resume
+        return context
+
+    def test_func(self):
+        experience = self.get_object()
+        return experience.resume.user == self.request.user

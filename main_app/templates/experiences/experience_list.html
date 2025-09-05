@@ -21,7 +21,7 @@
           {% csrf_token %}
           <button type="submit">Delete</button>
         </form>
-        {% comment %} <a href="{% url 'experience_edit' resume.id exp.id %}">Edit</a> {% endcomment %}
+        <a href="{% url 'experience_edit' resume.id exp.id %}">Edit</a>
       </li>
     {% empty %}
       <li>No experiences added yet.</li>
