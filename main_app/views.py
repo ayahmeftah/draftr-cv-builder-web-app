@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DetailView
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from . import models, forms
@@ -57,3 +56,9 @@ class ResumePreviewView(DetailView):
     template_name = "cv_templates/template1.html"
     pk_url_kwarg = "resume_id"
     context_object_name = "resume"
+    
+
+class EducationCreateView(CreateView):
+    model = models.Education
+    form_class = forms.EducationForm
+    template_name = "education_form.html"

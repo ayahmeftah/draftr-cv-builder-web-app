@@ -36,3 +36,8 @@ class ResumePersonalForm(forms.ModelForm):
             'location', 'email', 'mobile', 'linkedin_link',
             'additional_link_name', 'additional_link'
         ]
+
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model = models.Education
+        fields = ["school", "degree", "start_date", "end_date", "description"]
