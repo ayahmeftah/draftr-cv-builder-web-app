@@ -68,7 +68,16 @@ class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         resume = self.get_object()
         return resume.user == self.request.user
 
-    
+ 
+class ResumeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = models.Resume
+    pk_url_kwarg = "resume_id"
+    success_url = reverse_lazy('template_list')
+
+    def test_func(self):
+        resume = self.get_object()
+        return resume.user == self.request.user
+  
 
 # Education Views
 
