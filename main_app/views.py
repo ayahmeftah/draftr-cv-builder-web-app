@@ -57,13 +57,18 @@ class PersonalInfoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = models.Resume
-    template_name = "cv_templates/template1.html"
     pk_url_kwarg = "resume_id"
     context_object_name = "resume"
+
+    def get_template_names(self):
+        resume = self.get_object()
+        return [resume.template.template_path]
 
     def test_func(self):
         resume = self.get_object()
         return resume.user == self.request.user
+
+    
 
 # Education Views
 
