@@ -4,12 +4,16 @@
 {% endblock %}
 
 {% block body %}
-<div>
-    {% block head1 %}
-    {% endblock %}
-    {% block body1 %}
-    {% endblock %}
+<div class="resume-preview-container">
+
+    <div class="resume-actions">
+        <a href="{% url 'resume_personal_info' resume.id %}">Edit</a>
+        <a href="{% url 'resume_preview' resume.id %}">Download</a>
+        {% comment %} <a href="{% url 'resume_delete' resume.id %}">Delete</a> {% endcomment %}
+    </div>
+
+    {% block head1 %}{% endblock %}
+    {% block body1 %}{% endblock %}
 
 </div>
-
 {% endblock %}
