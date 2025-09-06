@@ -1,4 +1,13 @@
-/* From Uiverse.io by Nawsome */ 
+/* From Uiverse.io by Nawsome */
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100%;
+}
+
 .loader {
   --background: linear-gradient(135deg, #23C4F8, #275EFE);
   --shadow: rgba(39, 94, 254, 0.28);
@@ -6,8 +15,8 @@
   --page: rgba(255, 255, 255, 0.36);
   --page-fold: rgba(255, 255, 255, 0.52);
   --duration: 3s;
-  width: 200px;
-  height: 140px;
+  width: 280px;
+  height: 200px;
   position: relative;
 }
 
@@ -89,8 +98,8 @@
 }
 
 .loader div ul li svg {
-  width: 90px;
-  height: 120px;
+  width: 130px;
+  height: 170px;
   display: block;
 }
 
@@ -108,8 +117,10 @@
   left: 0;
   right: 0;
   top: 100%;
-  margin-top: 20px;
+  margin-top: 25px;
   text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
   color: var(--text);
 }
 
