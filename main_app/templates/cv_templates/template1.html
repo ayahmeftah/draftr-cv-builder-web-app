@@ -16,6 +16,11 @@
         <span class="cv-email">Email: {{ resume.email }}</span>
         <span class="cv-separator"></span>
         <span class="cv-phone">Phone: {{ resume.mobile }}</span>
+        
+        {% if resume.location %}
+          <span class="cv-separator"></span>
+          <span class="cv-location">{{ resume.location }}</span>
+        {% endif %}
         {% if resume.linkedin_link %}
           <span class="cv-separator"></span>
           <span class="cv-linkedin"><a href="{{ resume.linkedin_link }}">LinkedIn</a></span>
@@ -25,34 +30,39 @@
           <span class="cv-additional-link"><a href="{{ resume.additional_link }}">{{ resume.additional_link_name }}</a></span>
         {% endif %}
       </div>
+    </div>
+
+    <div class="cv-details">
       {% if resume.profile %}
         <div class="cv-about">
           <div class="cv-section-title">Profile</div>
           <p class="cv-desc">{{ resume.profile }}</p>
         </div>
       {% endif %}
-    </div>
-
-    <div class="cv-details">
       {% if resume.experiences.exists %}
         <div class="cv-section">
           <div class="cv-section-title">Experience</div>
           <div class="cv-section-list">
+            <ul>
             {% for exp in resume.experiences.all %}
+              <li>
               <div class="cv-section-list-item">
-                <div class="cv-left">
-                  <div class="cv-name">{{ exp.company }}</div>
-                  {% if resume.location %}
-                    <div class="cv-addr">{{ resume.location }}</div>
-                  {% endif %}
-                  <div class="cv-duration">{{ exp.start_date|date:'M Y' }} - {{ exp.end_date|date:'M Y' }}</div>
-                </div>
-                <div class="cv-right">
+                <div class="cv-top-line">
                   <div class="cv-role">{{ exp.role }}</div>
-                  <div class="cv-desc">{{ exp.description }}</div>
+                  <div class="cv-duration">{{ exp.start_date|date:'M Y' }} - 
+                    {% if exp.end_date %}
+                    {{ exp.end_date|date:'M Y' }}
+                    {% else %}
+                    Present
+                    {% endif %}
+                  </div>
                 </div>
+                <div class="cv-name">{{ exp.company }}</div>
+                <div class="cv-desc">{{ exp.description }}</div>
               </div>
+              </li>
             {% endfor %}
+            </ul>
           </div>
         </div>
       {% endif %}
@@ -61,19 +71,26 @@
         <div class="cv-section">
           <div class="cv-section-title">Education</div>
           <div class="cv-section-list">
+            <ul>
             {% for edu in resume.educations.all %}
+              <li>
               <div class="cv-section-list-item">
-                <div class="cv-left">
-                  <div class="cv-name">{{ edu.school }}</div>
-                  <div class="cv-addr">{{ resume.location }}</div>
-                  <div class="cv-duration">{{ edu.start_date|date:'M Y' }} - {{ edu.end_date|date:'M Y' }}</div>
-                </div>
-                <div class="cv-right">
+                <div class="cv-top-line">
                   <div class="cv-degree">{{ edu.degree }}</div>
-                  <div class="cv-desc">{{ edu.description }}</div>
+                  <div class="cv-duration">{{ edu.start_date|date:'M Y' }} - 
+                    {% if edu.end_date %}
+                    {{ edu.end_date|date:'M Y' }}
+                    {% else %}
+                    Present
+                    {% endif %}
+                  </div>
                 </div>
+                  <div class="cv-name">{{ edu.school }}</div>
+                  <div class="cv-desc">{{ edu.description }}</div>
               </div>
+              </li>
             {% endfor %}
+            </ul>
           </div>
         </div>
       {% endif %}
@@ -82,17 +99,23 @@
         <div class="cv-section">
           <div class="cv-section-title">Projects</div>
           <div class="cv-section-list">
+            <ul>
             {% for project in resume.projects.all %}
+            <li>
               <div class="cv-section-list-item">
-                <div class="cv-name">{{ project.project_title }}</div>
+                <div class="cv-top-line">
+                <div class="cv-project">{{ project.project_title }}</div>
+                </div>
+                {% if project.project_link %}
+                    <a href="{{ project.project_link }}" class="cv-proj-link">Project Link</a>
+                {% endif %}
                 <div class="cv-text">
                   {{ project.project_description }}
-                  {% if project.project_link %}
-                    <a href="{{ project.project_link }}">link</a>
-                  {% endif %}
                 </div>
               </div>
+              </li>
             {% endfor %}
+              </ul>
           </div>
         </div>
       {% endif %}
@@ -100,7 +123,9 @@
       {% if resume.skill_categories.exists %}
         <div class="cv-section">
           <div class="cv-section-title">Skills</div>
+          <ul>
           {% for cat in resume.skill_categories.all %}
+            <li>
             <div class="cv-skills">
               <div class="cv-skills-category">{{ cat.skill_category_title }}</div>
               {% for skill in cat.skills.all %}
@@ -110,7 +135,9 @@
                 </div>
               {% endfor %}
             </div>
+            </li>
           {% endfor %}
+          </ul>
         </div>
       {% endif %}
 
@@ -118,17 +145,21 @@
         <div class="cv-section">
           <div class="cv-section-title">Certifications</div>
           <div class="cv-section-list">
+            <ul>
             {% for cert in resume.certifications.all %}
+            <li>
               <div class="cv-section-list-item">
-                <div class="cv-name">{{ cert.certification_name }}</div>
+                <div class="cv-top-line">{{ cert.certification_name }}</div>
                 <div class="cv-desc">
                   Issued by {{ cert.issued_by }}
-                  {% if cert.credential_url %}
-                    (<a href="{{ cert.credential_url }}">link</a>)
-                  {% endif %}
                 </div>
+                {% if cert.credential_url %}
+                    <a href="{{ cert.credential_url }}" class="cv-proj-link">Credential Url</a>
+                {% endif %}
               </div>
+              </li>
             {% endfor %}
+            </ul>
           </div>
         </div>
       {% endif %}
