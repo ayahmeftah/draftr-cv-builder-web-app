@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/loader.css' %}" />
+{% endblock %}
+
+{% block body %}
+  <div class="d-flex justify-content-center align-items-center" style="height:100vh; flex-direction:column;">
+    <div class="loader">
+      <div>
+        <ul>
+          <li>
+            <svg fill="currentColor" viewBox="0 0 90 120">
+              <path d="M90,0 L90,120 L11,120 C4.9,120 0,115.1 0,109 L0,11 C0,4.9 4.9,0 11,0 L90,0 Z"></path>
+            </svg>
+          </li>
+          <li>
+            <svg fill="currentColor" viewBox="0 0 90 120">
+              <path d="M90,0 L90,120 L11,120 ..."></path>
+            </svg>
+          </li>
+          <li>
+            <svg fill="currentColor" viewBox="0 0 90 120">
+              <path d="M90,0 L90,120 L11,120 ..."></path>
+            </svg>
+          </li>
+          <li>
+            <svg fill="currentColor" viewBox="0 0 90 120">
+              <path d="M90,0 L90,120 L11,120 ..."></path>
+            </svg>
+          </li>
+          <li>
+            <svg fill="currentColor" viewBox="0 0 90 120">
+              <path d="M90,0 L90,120 L11,120 ..."></path>
+            </svg>
+          </li>
+          <li>
+            <svg fill="currentColor" viewBox="0 0 90 120">
+              <path d="M90,0 L90,120 L11,120 ..."></path>
+            </svg>
+          </li>
+          <li>
+            <svg fill="currentColor" viewBox="0 0 90 120">
+              <path d="M90,0 L90,120 L11,120 ..."></path>
+            </svg>
+          </li>
+        </ul>
+      </div>
+      <span style="margin-top:20px; font-size:18px;">Building your CV...</span>
+    </div>
+  </div>
+
+  <script>
+    // After 3 seconds, redirect to preview
+    setTimeout(function () {
+      window.location.href = "{% url 'resume_preview' resume.id %}"
+    }, 3000)
+  </script>
+{% endblock %}
