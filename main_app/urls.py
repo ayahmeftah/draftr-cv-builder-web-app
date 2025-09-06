@@ -6,7 +6,6 @@ urlpatterns = [
     path("",views.HomePageView.as_view(),name="homepage"),
     path("auth/signup/", views.SignUpView.as_view(), name="signup"),
     
-    path("resumes/"),
     path("resumes/templates/", views.TemplateListView.as_view(), name="template_list"),
     path("resumes/templates/<int:template_id>/", views.select_template, name="select_template"),
     path("resumes/<int:resume_id>/personal/", views.PersonalInfoView.as_view(), name="resume_personal_info"),
@@ -46,4 +45,6 @@ urlpatterns = [
     path("resumes/<int:resume_id>/certifications/add/", views.CertificationCreateView.as_view(), name="certification_add"),
     path("resumes/<int:resume_id>/certifications/<int:certification_id>/edit/", views.CertificationUpdateView.as_view(), name="certification_edit"),
     path("resumes/<int:resume_id>/certifications/<int:certification_id>/delete/", views.CertificationDeleteView.as_view(), name="certification_delete"),
+
+    path("resume/<int:resume_id>/loader/", views.ResumeLoaderView.as_view(), name="resume_loader"),
 ]

@@ -444,3 +444,10 @@ class CertificationDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteVie
     def test_func(self):
         cert = self.get_object()
         return cert.resume.user == self.request.user
+    
+
+class ResumeLoaderView(DetailView):
+    model = models.Resume
+    template_name = "resumes/loader.html"
+    pk_url_kwarg = "resume_id"
+    context_object_name = "resume"
