@@ -10,6 +10,7 @@ class Template(models.Model):
     template_path = models.CharField(max_length=200)
     template_css = models.CharField(max_length=200,null=True)
     candidate_img_available = models.BooleanField(default=False)
+    description = models.CharField(max_length=200,null=True)
 
     class Meta:
         db_table = "cv_templates"
