@@ -1,226 +1,172 @@
-{% extends 'resumes/resume_Preview.html' %}
+<!DOCTYPE html>
 {% load static %}
-
-{% block head1 %}
-<link rel="stylesheet" href="{% static 'css/template2.css' %}">
-{% endblock %}
-
-{% block body1 %}
-<div class="wrapper">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/template2.css' %}">
+  <title>{{resume.resume_name}}</title>
+</head>
+<body>
+  <div class="wrapper">
   <div class="intro">
     <div class="profile">
+      {% if resume.candidate_image %}
       <div class="photo">
-        <img src="https://i.imgur.com/zh9eNsh.jpg">
+        <img src="{{ resume.candidate_image.url }}" alt="{{ resume.candidate_name }}">
       </div>
+      {% endif %}
       <div class="bio">
-        <h1 class="name">Chih-Hsiang Chen</h1>
-        <p class="profession">Front-end Developer</p>
+        <h1 class="name">{{ resume.candidate_name }}</h1>
+        <p class="profession">{{ resume.job_title }}</p>
       </div>
     </div>
+
+    {% if resume.profile %}
     <div class="intro-section about">
-      <h1 class="title">about me</h1>
-      <p class="paragraph">
-        Hi everyone, I am a web front-end developer, graduated from NTHU, Taiwan and my major is CS. I recently try my
-        best to improve my skills on web front-end. My favorite thing is to observe others' portfolio.
-      </p>
+      <h1 class="title">About Me</h1>
+      <p>{{ resume.profile }}</p>
     </div>
+    {% endif %}
+
     <div class="intro-section contact">
       <h1 class="title">Contact</h1>
-      <div class="info-section">
-        <i class="fas fa-phone"></i>
-        <span>(+886)888-888-888</span>
+      <div class="info-section"><i class="fas fa-phone"></i> <span>{{ resume.mobile }}</span></div>
+      {% if resume.location %}
+      <div class="info-section"><i class="fas fa-map-marker-alt"></i> <span>{{ resume.location }}</span></div>
+      {% endif %}
+      <div class="info-section"><i class="fas fa-paper-plane"></i> <span>{{ resume.email }}</span></div>
+      {% if resume.linkedin_link %}
+      <div class="info-section link"><i class="fab fa-linkedin"></i>
+        <a href="{{ resume.linkedin_link }}" target="_blank"><span>LinkedIn</span></a>
       </div>
-      <div class="info-section">
-        <i class="fas fa-map-marker-alt"></i>
-        <span>Kaoshiung, Taiwan</span>
+      {% endif %}
+      {% if resume.additional_link %}
+      <div class="info-section link"><i class="fas fa-link"></i>
+        <a href="{{ resume.additional_link }}" target="_blank"><span>{{ resume.additional_link_name }}</span></a>
       </div>
-      <div class="info-section">
-        <i class="fas fa-paper-plane"></i>
-        <span>chih.hsi.chen@gmail.com</span>
-      </div>
-      <div class="info-section link">
-        <i class="fab fa-facebook"></i>
-        <a target="_blank" rel="author" href="https://www.facebook.com/profile.php?id=100006277752355">
-          <span>陳志祥</span>
-        </a>
-      </div>
-    </div>
-    <div class="intro-section follow">
-      <h1 class="title">Follow</h1>
-      <div class="info-section link">
-        <i class="fab fa-github"></i>
-        <a target="_blank" rel="author" href="https://github.com/chih-hsi-chen">
-          <span>chih-hsi-chen@github</span>
-        </a>
-      </div>
-      <div class="info-section link">
-        <i class="fab fa-codepen"></i>
-        <a target="_blank" rel="author" href="https://codepen.io/chih-hsi-chen">
-          <span>codepen.io</span>
-        </a>
-      </div>
-      <div class="info-section link">
-        <i class="fab fa-medium"></i>
-        <a target="_blank" rel="author" href="https://medium.com/狗奴工程師">
-          <span>狗奴工程師</span>
-        </a>
-      </div>
+      {% endif %}
     </div>
   </div>
+
   <div class="detail">
+
+    {% if resume.experiences.exists %}
+    <div class="detail-section exp">
+      <div class="detail-title">
+        <div class="title-icon"><i class="fas fa-briefcase"></i></div>
+        <span>Experience</span>
+      </div>
+      <div class="detail-content">
+        {% for exp in resume.experiences.all %}
+        <div class="timeline-block">
+          <h1>{{ exp.role }}</h1>
+          <p>{{ exp.company }}</p>
+          <time>{{ exp.start_date|date:'M Y' }} - {% if exp.end_date %}{{ exp.end_date|date:'M Y' }}{% else %}Present{% endif %}</time>
+          <p>{{ exp.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if resume.educations.exists %}
     <div class="detail-section edu">
       <div class="detail-title">
-        <div class="title-icon">
-          <i class="fas fa-user-graduate"></i>
-        </div>
-        <span>Eduation</span>
+        <div class="title-icon"><i class="fas fa-user-graduate"></i></div>
+        <span>Education</span>
       </div>
       <div class="detail-content">
+        {% for edu in resume.educations.all %}
         <div class="timeline-block">
-          <h1>Department of Computer Science</h1>
-          <p>National Tsing Hua University, Taiwan</p>
-          <time>2015 - 2019</time>
+          <h1>{{ edu.degree }}</h1>
+          <p>{{ edu.school }}</p>
+          <time>{{ edu.start_date|date:'M Y' }} - {% if edu.end_date %}{{ edu.end_date|date:'M Y' }}{% else %}Present{% endif %}</time>
+          <p>{{ edu.description }}</p>
         </div>
-        <div class="timeline-block">
-          <h1>Institute of Computer Science and Engineering</h1>
-          <p>National Chiao Tung University, Taiwan</p>
-          <time>2020 - present</time>
-        </div>
+        {% endfor %}
       </div>
     </div>
-    <div class="detail-section pg-skill">
-      <div class="detail-title">
-        <div class="title-icon">
-          <i class="fas fa-laptop-code"></i>
-        </div>
-        <span>Programming skills</span>
-      </div>
-      <div class="detail-content">
-        <ul class="pg-list">
-          <li>
-            <span>HTML5</span>
-            <div class="sb-skeleton">
-              <div class="skillbar" style="--pgbar-length: 90%"></div>
-            </div>
-          </li>
-          <li>
-            <span>CSS3</span>
-            <div class="sb-skeleton">
-              <div class="skillbar" style="--pgbar-length: 75%"></div>
-            </div>
-          </li>
-          <li>
-            <span>Javascript</span>
-            <div class="sb-skeleton">
-              <div class="skillbar" style="--pgbar-length: 70%"></div>
-            </div>
-          </li>
-          <li>
-            <span>JQuery</span>
-            <div class="sb-skeleton">
-              <div class="skillbar" style="--pgbar-length: 50%"></div>
-            </div>
-          </li>
-          <li>
-            <span>NodeJS</span>
-            <div class="sb-skeleton">
-              <div class="skillbar" style="--pgbar-length: 70%"></div>
-            </div>
-          </li>
-          <li>
-            <span>ReactJS</span>
-            <div class="sb-skeleton">
-              <div class="skillbar" style="--pgbar-length: 75%"></div>
-            </div>
-          </li>
-          <li>
-            <span>VueJS</span>
-            <div class="sb-skeleton">
-              <div class="skillbar" style="--pgbar-length: 40%"></div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="detail-section tool-skill">
-      <div class="detail-title">
-        <div class="title-icon">
-          <i class="fas fa-tools"></i>
-        </div>
-        <span>Developement Tools</span>
-      </div>
-      <div class="detail-content">
-        <ul class="tool-list">
-          <li>
-            <svg viewbox="0 0 100 100">
-              <circle cx="50" cy="50" r="45"></circle>
-              <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.6"></circle>
-            </svg>
-            <span class="tl-name">Photoshop</span>
-            <span class="tl-exp">60%</span>
-          </li>
-          <li>
-            <svg viewbox="0 0 100 100">
-              <circle cx="50" cy="50" r="45"></circle>
-              <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.8"></circle>
-            </svg>
-            <span class="tl-name">Sublime</span>
-            <span class="tl-exp">80%</span>
-          </li>
-          <li>
-            <svg viewbox="0 0 100 100">
-              <circle cx="50" cy="50" r="45"></circle>
-              <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.7"></circle>
-            </svg>
-            <span class="tl-name">Git</span>
-            <span class="tl-exp">70%</span>
-          </li>
-          <li>
-            <svg viewbox="0 0 100 100">
-              <circle cx="50" cy="50" r="45"></circle>
-              <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.74"></circle>
-            </svg>
-            <span class="tl-name">NPM</span>
-            <span class="tl-exp">74%</span>
-          </li>
-        </ul>
-      </div>
+    {% endif %}
 
+    {% if resume.projects.exists %}
+    <div class="detail-section projects">
+      <div class="detail-title">
+        <div class="title-icon"><i class="fas fa-tasks"></i></div>
+        <span>Projects</span>
+      </div>
+      <div class="detail-content">
+        <ul>
+          {% for project in resume.projects.all %}
+          <li>
+            <strong>{{ project.project_title }}</strong>
+            {% if project.project_link %}<a href="{{ project.project_link }}" target="_blank">(Link)</a>{% endif %}
+            <p>{{ project.project_description }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
+    {% endif %}
+
+    {% if resume.skill_categories.exists %}
+    <div class="detail-section skills">
+      <div class="detail-title">
+        <div class="title-icon"><i class="fas fa-laptop-code"></i></div>
+        <span>Skills</span>
+      </div>
+      <div class="detail-content">
+        <ul>
+          {% for cat in resume.skill_categories.all %}
+          <li>
+            <strong>{{ cat.skill_category_title }}:</strong>
+            {% for skill in cat.skills.all %}
+              {{ skill.skill_name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if resume.certifications.exists %}
+    <div class="detail-section certifications">
+      <div class="detail-title">
+        <div class="title-icon"><i class="fas fa-certificate"></i></div>
+        <span>Certifications</span>
+      </div>
+      <div class="detail-content">
+        <ul>
+          {% for cert in resume.certifications.all %}
+          <li>
+            <strong>{{ cert.certification_name }}</strong> - {{ cert.issued_by }}
+            {% if cert.credential_url %}<a href="{{ cert.credential_url }}" target="_blank">(Credential)</a>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if resume.interests.exists %}
     <div class="detail-section interests">
       <div class="detail-title">
-        <div class="title-icon">
-          <i class="fas fa-heart"></i>
-        </div>
+        <div class="title-icon"><i class="fas fa-heart"></i></div>
         <span>Interests</span>
       </div>
       <div class="detail-content">
-        <div class="outer-frame">
-          <ul class="favor-list">
-            <li>
-              <i class="fas fa-gamepad"></i>
-              <span>Game</span>
-            </li>
-            <li>
-              <i class="fas fa-paw"></i>
-              <span>Pet</span>
-            </li>
-            <li>
-              <i class="far fa-headphones-alt"></i>
-              <span>Music</span>
-            </li>
-            <li>
-              <i class="fas fa-book-spells"></i>
-              <span>Self-learning</span>
-            </li>
-            <li>
-              <i class="fas fa-user-edit"></i>
-              <span>Blog</span>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          {% for interest in resume.interests.all %}
+          <li>{{ interest.title }}</li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
+    {% endif %}
+
   </div>
 </div>
-{% endblock %}
+</body>
+</html>
