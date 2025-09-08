@@ -81,6 +81,9 @@ class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
                 resume.template.template_css
             )
 
+            if not os.path.exists(css_path):
+                return HttpResponse(f"CSS file not found: {css_path}", status=404)
+
             html_string = render(
                 request,
                 resume.template.template_path,
@@ -93,6 +96,7 @@ class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
             ).write_pdf(stylesheets=[CSS(css_path)])
 
             response = HttpResponse(pdf_file, content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="{resume.resume_name or "resume"}.pdf"'
             return response
 
         return render(request, 'resumes/resume_preview.html', {'resume': resume})
