@@ -1,11 +1,13 @@
-{% extends 'resumes/resume_preview.html' %}
 {% load static %}
-{% block head1 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300,700" rel="stylesheet" />
   <link href="{% static 'css/template1.css' %}" rel="stylesheet" type="text/css" />
-{% endblock %}
-
-{% block body1 %}
+</head>
+<body>
   <div class="cv-container">
     <div class="cv-header">
       <div class="cv-full-name">
@@ -23,11 +25,11 @@
         {% endif %}
         {% if resume.linkedin_link %}
           <span class="cv-separator"></span>
-          <span class="cv-linkedin"><a href="{{ resume.linkedin_link }}">LinkedIn</a></span>
+          <span class="cv-linkedin"><a href="{{ resume.linkedin_link }}" target="_blank">LinkedIn</a></span>
         {% endif %}
         {% if resume.additional_link %}
           <span class="cv-separator"></span>
-          <span class="cv-additional-link"><a href="{{ resume.additional_link }}">{{ resume.additional_link_name }}</a></span>
+          <span class="cv-additional-link"><a href="{{ resume.additional_link }}" target="_blank">{{ resume.additional_link_name }}</a></span>
         {% endif %}
       </div>
     </div>
@@ -107,7 +109,7 @@
                 <div class="cv-project">{{ project.project_title }}</div>
                 </div>
                 {% if project.project_link %}
-                    <a href="{{ project.project_link }}" class="cv-proj-link">Project Link</a>
+                    <a href="{{ project.project_link }}" class="cv-proj-link" target="_blank">Project Link</a>
                 {% endif %}
                 <div class="cv-text">
                   {{ project.project_description }}
@@ -154,7 +156,7 @@
                   Issued by {{ cert.issued_by }}
                 </div>
                 {% if cert.credential_url %}
-                    <a href="{{ cert.credential_url }}" class="cv-proj-link">Credential Url</a>
+                    <a href="{{ cert.credential_url }}" class="cv-proj-link" target="_blank">Credential Url</a>
                 {% endif %}
               </div>
               </li>
@@ -165,4 +167,5 @@
       {% endif %}
     </div>
   </div>
-{% endblock %}
+</body>
+</html>
