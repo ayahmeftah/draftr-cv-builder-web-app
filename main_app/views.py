@@ -4,6 +4,9 @@ from django.contrib.auth import login
 from django.urls import reverse_lazy, reverse
 from . import models, forms
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from weasyprint import HTML, CSS
+from django.http import HttpResponse
+import os
 
 # Create your views here.
 
@@ -59,10 +62,38 @@ class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = models.Resume
     pk_url_kwarg = "resume_id"
     context_object_name = "resume"
-    
+
     def test_func(self):
         resume = self.get_object()
         return resume.user == self.request.user
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        resume = self.object
+
+        if request.GET.get('download'):
+            css_path = os.path.join(
+                'main_app',
+                'static',
+                'css',
+                resume.template.template_css
+            )
+
+            html_string = render(
+                request,
+                resume.template.template_path,
+                {'resume': resume}
+            ).content.decode('utf-8')
+
+            pdf_file = HTML(
+                string=html_string,
+                base_url=request.build_absolute_uri('/')
+            ).write_pdf(stylesheets=[CSS(css_path)])
+
+            response = HttpResponse(pdf_file, content_type='application/pdf')
+            return response
+
+        return render(request, 'resumes/resume_preview.html', {'resume': resume})
 
  
 class ResumeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
