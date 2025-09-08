@@ -6,6 +6,7 @@ from . import models, forms
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from weasyprint import HTML, CSS
 from django.http import HttpResponse
+from django.conf import settings
 import os
 
 # Create your views here.
@@ -73,6 +74,7 @@ class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
         if request.GET.get('download'):
             css_path = os.path.join(
+                settings.BASE_DIR,
                 'main_app',
                 'static',
                 'css',
