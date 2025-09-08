@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Raleway:100|Montserrat" rel="stylesheet">
+  <link href="{% static 'css/template3.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div class="cv-page">
+
+    <!-- LEFT SIDEBAR -->
+<div class="cv-left">
+  {% if resume.candidate_image %}
+    <div class="cv-photo">
+      <img src="{{ resume.candidate_image.url }}" alt="Profile Picture">
+    </div>
+  {% endif %}
+
+  {% if resume.profile %}
+    <div class="cv-profile">
+      <div class="cv-section-title">Profile</div>
+      <p>{{ resume.profile }}</p>
+    </div>
+  {% endif %}
+
+  {% if resume.email or resume.mobile or resume.location or resume.linkedin_link or resume.additional_link %}
+    <div class="cv-contact">
+      <div class="cv-section-title">Contact</div>
+      <ul>
+        {% if resume.email %}
+          <li>Email: <a href="mailto:{{ resume.email }}">{{ resume.email }}</a></li>
+        {% endif %}
+        {% if resume.mobile %}
+          <li>Phone: {{ resume.mobile }}</li>
+        {% endif %}
+        {% if resume.location %}
+          <li>Location: {{ resume.location }}</li>
+        {% endif %}
+        {% if resume.linkedin_link %}
+          <li><a href="{{ resume.linkedin_link }}" target="_blank">LinkedIn</a></li>
+        {% endif %}
+        {% if resume.additional_link %}
+          <li><a href="{{ resume.additional_link }}" target="_blank">{{ resume.additional_link_name }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+</div>
+
+
+    <!-- RIGHT CONTENT -->
+    <div class="cv-right">
+      <div class="cv-header">
+        <h1>{{ resume.candidate_name }}</h1>
+        <h2>{{ resume.job_title }}</h2>
+      </div>
+
+      {% if resume.experiences.exists %}
+      <div class="cv-section">
+        <div class="cv-section-title">Experience</div>
+        <ul>
+        {% for exp in resume.experiences.all %}
+          <li>
+            <strong>{{ exp.role }}</strong> at {{ exp.company }} ({{ exp.start_date|date:'M Y' }} - {% if exp.end_date %}{{ exp.end_date|date:'M Y' }}{% else %}Present{% endif %})
+            <p>{{ exp.description }}</p>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      
+      {% if resume.educations.exists %}
+        <div class="cv-section">
+          <div class="cv-section-title">Education</div>
+          <ul>
+          {% for edu in resume.educations.all %}
+            <li>{{ edu.degree }} - {{ edu.school }} ({{ edu.start_date|date:'Y' }} - {% if edu.end_date %}{{ edu.end_date|date:'Y' }}{% else %}Present{% endif %})</li>
+          {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      
+      {% if resume.skill_categories.exists %}
+        <div class="cv-section">
+          <div class="cv-section-title">Skills</div>
+          <ul>
+          {% for cat in resume.skill_categories.all %}
+            <li>{{ cat.skill_category_title }}: 
+              {% for skill in cat.skills.all %}
+                {{ skill.skill_name }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {% if resume.projects.exists %}
+      <div class="cv-section">
+        <div class="cv-section-title">Projects</div>
+        <ul>
+        {% for project in resume.projects.all %}
+          <li>
+            <strong>{{ project.project_title }}</strong>
+            {% if project.project_link %}<a href="{{ project.project_link }}" target="_blank">[Link]</a>{% endif %}
+            <p>{{ project.project_description }}</p>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+
+        {% if resume.certifications.exists %}
+        <div class="cv-section">
+          <div class="cv-section-title">Certifications</div>
+          <ul>
+          {% for cert in resume.certifications.all %}
+            <li>{{ cert.certification_name }} - {{ cert.issued_by }}
+            {% if cert.credential_url %} (<a href="{{ cert.credential_url }}" target="_blank">Link</a>){% endif %}</li>
+          {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+    </div>
+  </div>
+</body>
+</html>
