@@ -9,7 +9,10 @@
     <div class="resume-actions">
         <a href="{% url 'resume_personal_info' resume.id %}">Edit</a>
         <a href="?download=1">Download PDF</a>
-        <a href="{% url 'resume_delete' resume.id %}">Delete</a>
+        <form method="post" action="{% url 'resume_delete' resume.id %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
     </div>
 
     {% include resume.template.template_path %}
