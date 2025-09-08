@@ -8,6 +8,7 @@ from weasyprint import HTML, CSS
 from django.http import HttpResponse
 from django.conf import settings
 import os
+from django.views import View
 
 # Create your views here.
 
@@ -102,13 +103,15 @@ class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         return render(request, 'resumes/resume_preview.html', {'resume': resume})
 
  
-class ResumeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = models.Resume
-    pk_url_kwarg = "resume_id"
-    success_url = reverse_lazy('template_list')
+class ResumeDeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
+
+    def post(self, request, resume_id):
+        resume = get_object_or_404(models.Resume, id=resume_id, user=request.user)
+        resume.delete()
+        return redirect('template_list')
 
     def test_func(self):
-        resume = self.get_object()
+        resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
         return resume.user == self.request.user
   
 
