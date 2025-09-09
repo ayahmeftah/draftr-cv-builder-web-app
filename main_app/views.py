@@ -501,3 +501,16 @@ class ResumeLoaderView(DetailView):
     template_name = "resumes/loader.html"
     pk_url_kwarg = "resume_id"
     context_object_name = "resume"
+
+class UserResumesView(LoginRequiredMixin, ListView):
+    model = models.Resume
+    template_name = "resumes/user_resumes.html"
+    context_object_name = "resumes"
+
+    def get_queryset(self):
+        return models.Resume.objects.filter(user=self.request.user).order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['username'] = self.request.user.username
+        return context
