@@ -1,48 +1,106 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
-
+  <link rel="stylesheet" href="{% static "css/progress.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block body %}
-  <h2>Skills</h2>
+<div class="progress-container">
+    <div class="progress-line"></div>
+    <div class="progress-line-active" style="width: 60%;"></div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Personal Info</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Education</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Experience</div>
+    </div>
+    
+    <div class="progress-step active">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Skills</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Projects</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Certifications</div>
+    </div>
+</div>
 
-  <a href="{% url 'skill_category_add' resume.id %}">+ Add Skill Category</a>
+<div class="form-card">
+    <div class="list-header">
+        <h2>Skills</h2>
+        <a href="{% url 'skill_category_add' resume.id %}" class="add-button"> + Add Skill Category</a>
+    </div>
 
-  {% if categories %}
-    <ul>
-      {% for category in categories %}
-        <li>
-          <strong>{{ category.skill_category_title }}</strong>
-          <a href="{% url 'skill_category_edit' resume.id category.id %}">Edit</a>
-          <form method="post" action="{% url 'skill_category_delete' resume.id category.id %}">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-          </form>
-          <a href="{% url 'skill_add' resume.id category.id %}">+ Add Skill</a>
-          <ul>
-            {% for skill in category.skills.all %}
-              <li>
-                {{ skill.skill_name }} - {{ skill.level }}
-                <a href="{% url 'skill_edit' resume.id skill.id %}">Edit</a>
-                <form method="post" action="{% url 'skill_delete' resume.id skill.id %}">
-                  {% csrf_token %}
-                  <button type="submit">Delete</button>
-                </form>
-              </li>
-            {% empty %}
-              <li>No skills yet.</li>
-            {% endfor %}
-          </ul>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No skill categories added yet</p>
-  {% endif %}
+    {% if categories %}
+        {% for category in categories %}
+        <div class="skill-category-card">
+            <div class="skill-category-header">
+                <h3 class="skill-category-title">{{ category.skill_category_title }}</h3>
+                <div class="skill-category-actions">
+                    <a href="{% url 'skill_category_edit' resume.id category.id %}" class="edit-button">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form method="post" action="{% url 'skill_category_delete' resume.id category.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                    <a href="{% url 'skill_add' resume.id category.id %}" class="add-button" style="padding: 5px 10px; font-size: 14px;">
+                        + Add Skill
+                    </a>
+                </div>
+            </div>
+            
+            <ul class="skill-list">
+                {% for skill in category.skills.all %}
+                <li class="skill-item">
+                    <div>
+                        <span class="skill-name">{{ skill.skill_name }}</span>
+                        <span class="skill-level">- {{ skill.level }}</span>
+                    </div>
+                    <div class="skill-actions">
+                        <a href="{% url 'skill_edit' resume.id skill.id %}" class="edit-button">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form method="post" action="{% url 'skill_delete' resume.id skill.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-button">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {% empty %}
+                <li class="empty-state">No skills in this category yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-state">No skill categories added yet</p>
+    {% endif %}
 
-  <div>
-    <a href="{% url 'experience_list' resume.id %}">Back</a>
-    <a href="{% url 'project_list' resume.id %}">Next</a>
-  </div>
+    <div class="navigation-buttons">
+        <a href="{% url 'experience_list' resume.id %}" class="nav-button back">Back</a>
+        <a href="{% url 'project_list' resume.id %}" class="nav-button next">Next</a>
+    </div>
+</div>
 {% endblock %}
