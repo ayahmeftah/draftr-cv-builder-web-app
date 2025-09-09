@@ -1,33 +1,51 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static "css/forms.css" %}">
+{% endblock %}
 
 {% block body %}
-<h2>
-    {% if certification %}
-        Edit Certification
-    {% else %}
-        Add Certification
-    {% endif %}
-</h2>
+<div class="form-container">
+    <div class="form-card">
+        <h2>
+            {% if certification %}
+                Edit Certification
+            {% else %}
+                Add Certification
+            {% endif %}
+        </h2>
 
-<form method="post">
-  {% csrf_token %}
+        <form method="post">
+            {% csrf_token %}
 
-  <label for="certification_name">Certification Name:</label>
-  <input type="text" name="certification_name" id="certification_name" value="{{ form.certification_name.value|default_if_none:'' }}" required />
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="certification_name">Certification Name:</label>
+                    <input type="text" name="certification_name" id="certification_name" value="{{ form.certification_name.value|default_if_none:'' }}" required />
+                </div>
+                <div class="form-group">
+                    <label for="issued_by">Issued By:</label>
+                    <input type="text" name="issued_by" id="issued_by" value="{{ form.issued_by.value|default_if_none:'' }}" required />
+                </div>
+            </div>
 
-  <label for="issued_by">Issued By:</label>
-  <input type="text" name="issued_by" id="issued_by" value="{{ form.issued_by.value|default_if_none:'' }}" required />
+            <div class="form-group">
+                <label for="credential_url">Credential URL:</label>
+                <input type="url" name="credential_url" id="credential_url" value="{{ form.credential_url.value|default_if_none:'' }}" />
+            </div>
 
-  <label for="credential_url">Credential URL:</label>
-  <input type="url" name="credential_url" id="credential_url" value="{{ form.credential_url.value|default_if_none:'' }}" />
-
-  <button type="submit">
-    {% if certification %}
-        Edit Certification
-    {% else %}
-        Add Certification
-    {% endif %}
-  </button>
-  <a href="{% url 'certification_list' resume.id %}">Cancel</a>
-</form>
+            <div class="form-button-container">
+                <a href="{% url 'certification_list' resume.id %}" class="cancel-button">Cancel</a>
+                <button type="submit">
+                    {% if certification %}
+                        Update Certification
+                    {% else %}
+                        Add Certification
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
