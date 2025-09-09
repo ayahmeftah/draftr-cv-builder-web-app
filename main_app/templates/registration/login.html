@@ -1,35 +1,50 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
-
+  <link rel="stylesheet" href="{% static "css/auth.css" %}">
 {% endblock %}
 
 {% block body %}
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p class="auth-subtitle">Login to your account</p>
+        </div>
 
-    {% if form.errors %}
-      <div style="color: red;">
-        {% for field in form %}
-          {% for error in field.errors %}
-            <p>{{ error }}</p>
-          {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-          <p>{{ error }}</p>
-        {% endfor %}
-      </div>
-    {% endif %}
+        <form method="post" class="auth-form">
+            {% csrf_token %}
 
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required />
-    <br />
+            {% if form.errors %}
+                <div class="error-messages">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required />
-    <br />
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" placeholder="Enter your username" required />
+            </div>
 
-    <button type="submit">Login</button>
-  </form>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required />
+            </div>
+
+            <button type="submit" class="auth-button">Login</button>
+        </form>
+
+        <div class="auth-link">
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+        </div>
+    </div>
+</div>
 {% endblock %}
