@@ -1,24 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block head %}{% endblock  %}
+{% block head %}
+  <link rel="stylesheet" href="{% static "css/forms.css" %}">
+{% endblock %}
 
 {% block body %}
-<h2>
-  {% if category %}
-    Edit Skill Category
-  {% else %}
-    Add Skill Category
-  {% endif %}
-</h2>
+<div class="form-container">
+    <div class="form-card single-field-form">
+        <h2>
+            {% if category %}
+                Edit Skill Category
+            {% else %}
+                Add Skill Category
+            {% endif %}
+        </h2>
 
-<form method="post">
-  {% csrf_token %}
+        <form method="post">
+            {% csrf_token %}
 
-  <label>Category Title:</label>
-  <input type="text" name="skill_category_title" value="{{ form.skill_category_title.value|default_if_none:'' }}" required />
+            <div class="form-group">
+                <label for="skill_category_title">Category Title:</label>
+                <input type="text" id="skill_category_title" name="skill_category_title" value="{{ form.skill_category_title.value|default_if_none:'' }}" required />
+            </div>
 
-  <button type="submit">Save</button>
-  <a href="{% url 'skill_list' resume.id %}">Cancel</a>
-</form>
-
+            <div class="form-button-container">
+                <a href="{% url 'skill_list' resume.id %}" class="cancel-button">Cancel</a>
+                <button type="submit">
+                    {% if category %}
+                        Update Category
+                    {% else %}
+                        Add Category
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
