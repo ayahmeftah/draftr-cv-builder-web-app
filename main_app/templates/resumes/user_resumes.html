@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div>
+        <h2>Welcome, {{ username }}</h2>
+        <a href="{% url 'template_list' %}">Create New Resume</a>
+    </div>
+
+    {% if resumes %}
+        <div>
+            {% for resume in resumes %}
+                <div>
+                    <div>
+                        <img src="{{ resume.template.preview_image.url }}" alt="{{ resume.template.template_name }}">
+                        <div>
+                            <h5 class="card-title">{{ resume.resume_name}}</h5>
+                            <p class="card-text">{{ resume.job_title }}</p>
+                            <a href="{% url 'resume_preview' resume.id %}" >Preview</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have not created any resumes yet</p>
+    {% endif %}
+</div>
+{% endblock %}
