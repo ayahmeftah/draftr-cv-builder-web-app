@@ -490,3 +490,43 @@ form .delete-button:hover {
     display: flex;
     gap: 10px;
 }
+
+
+.project-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.project-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333333;
+    margin: 0;
+}
+
+.project-link {
+    color: #2196F3;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+.project-description {
+    color: #666666;
+    margin: 10px 0 0;
+    line-height: 1.5;
+}

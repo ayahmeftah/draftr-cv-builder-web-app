@@ -1,38 +1,87 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
-
+  <link rel="stylesheet" href="{% static "css/progress.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block body %}
-  <h2>Projects</h2>
-
-  <a href="{% url 'project_add' resume.id %}">+ Add Project</a>
-
-  {% if projects %}
-    <ul>
-      {% for project in projects %}
-        <li>
-          <strong>{{ project.project_title }}</strong>
-          {% if project.project_link %}
-            (<a href="{{ project.project_link }}" target="_blank">Link</a>)
-          {% endif %}
-          <p>{{ project.project_description }}</p>
-          <a href="{% url 'project_edit' resume.id project.id %}">Edit</a>
-          <form method="post" action="{% url 'project_delete' resume.id project.id %}">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-          </form>
-        </li>
-      {% endfor %}
+<div class="progress-container">
+    <div class="progress-line"></div>
+    <div class="progress-line-active" style="width: 80%;"></div>
     
-  {% else %}
-      <li>No projects added yet.</li>
-    </ul>
-  {% endif %}
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Personal Info</div>
+    </div>
     
-  <div>
-    <a href="{% url 'skill_list' resume.id %}">Back</a>
-    <a href="{% url 'certification_list' resume.id %}">Next</a>
-  </div>
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Education</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Experience</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Skills</div>
+    </div>
+    
+    <div class="progress-step active">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Projects</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Certifications</div>
+    </div>
+</div>
+
+<div class="form-card">
+    <div class="list-header">
+        <h2>Projects</h2>
+        <a href="{% url 'project_add' resume.id %}" class="add-button"> + Add Project</a>
+    </div>
+
+    {% if projects %}
+        {% for project in projects %}
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <h3 class="project-title">{{ project.project_title }}</h3>
+                    {% if project.project_link %}
+                    <a href="{{ project.project_link }}" target="_blank" class="project-link">View Project</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if project.project_description %}
+            <p class="project-description">{{ project.project_description }}</p>
+            {% endif %}
+            <div class="card-actions">
+                <a href="{% url 'project_edit' resume.id project.id %}" class="edit-button">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <form method="post" action="{% url 'project_delete' resume.id project.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-state">No projects added yet</p>
+    {% endif %}
+
+    <div class="navigation-buttons">
+        <a href="{% url 'skill_list' resume.id %}" class="nav-button back">Back</a>
+        <a href="{% url 'certification_list' resume.id %}" class="nav-button next">Next</a>
+    </div>
+</div>
 {% endblock %}
