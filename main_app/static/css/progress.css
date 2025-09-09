@@ -419,3 +419,10 @@ form .delete-button:hover {
         box-sizing: border-box;
     }
 }
+
+.empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #757575;
+    font-style: italic;
+}

@@ -1,35 +1,87 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static "css/progress.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
 
 {% block body %}
-  <h2>Experiences</h2>
+<div class="progress-container">
+    <div class="progress-line"></div>
+    <div class="progress-line-active" style="width: 40%;"></div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Personal Info</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Education</div>
+    </div>
+    
+    <div class="progress-step active">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Experience</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Skills</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Projects</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Certifications</div>
+    </div>
+</div>
 
-  <a href="{% url 'experience_add' resume.id %}">Add Experience</a>
+<div class="form-card">
+    <div class="list-header">
+        <h2>Work Experience</h2>
+        <a href="{% url 'experience_add' resume.id %}" class="add-button"> + Add Experience</a>
+    </div>
 
-  <ul>
     {% for exp in experiences %}
-      <li>
-        <strong>{{ exp.role }}</strong> at {{ exp.company }}
-        ({{ exp.start_date|date:'M Y' }} -{% if exp.is_current %}
-          Present
-        {% else %}
-          {{ exp.end_date|date:'M Y' }}
-        {% endif %})
-        <br />
-        {{ exp.description }}
-        <br />
-        <form method="post" action="{% url 'experience_delete' resume.id exp.id %}">
-          {% csrf_token %}
-          <button type="submit">Delete</button>
-        </form>
-        <a href="{% url 'experience_edit' resume.id exp.id %}">Edit</a>
-      </li>
+    <div class="experience-card">
+        <div class="experience-card-header">
+            <div>
+                <h3 class="experience-card-title">{{ exp.role }}</h3>
+                <p class="experience-card-company">{{ exp.company }}</p>
+                <p class="experience-card-period">
+                    {{ exp.start_date|date:'M Y' }} – 
+                    {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:'M Y' }}{% endif %}
+                </p>
+                {% if exp.description %}
+                <p class="experience-card-description">{{ exp.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-actions">
+            <a href="{% url 'experience_edit' resume.id exp.id %}" class="edit-button">
+                <i class="fas fa-edit"></i>
+            </a>
+            <form method="post" action="{% url 'experience_delete' resume.id exp.id %}">
+                {% csrf_token %}
+                <button type="submit" class="delete-button">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
+        </div>
+    </div>
     {% empty %}
-      <li>No experiences added yet.</li>
+    <p class="empty-state">No work experience added yet</p>
     {% endfor %}
-  </ul>
 
-  <div>
-    <a href="{% url 'education_list' resume.id %}">Back</a>
-    <a href="{% url 'skill_list' resume.id %}">Next</a>
-  </div>
+    <div class="navigation-buttons">
+        <a href="{% url 'education_list' resume.id %}" class="nav-button back">Back</a>
+        <a href="{% url 'skill_list' resume.id %}" class="nav-button next">Next</a>
+    </div>
+</div>
 {% endblock %}
