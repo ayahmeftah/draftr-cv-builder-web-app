@@ -1,51 +1,73 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
-
+  <link rel="stylesheet" href="{% static "css/auth.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block body %}
-  <h2>Sign Up</h2>
-  <form method="post">
-    {% csrf_token %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p class="auth-subtitle">Join us and start building your resume</p>
+        </div>
 
-    {% if form.errors %}
-      <div style="color: red;">
-        {% for field in form %}
-          {% for error in field.errors %}
-            <p>{{ error }}</p>
-          {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-          <p>{{ error }}</p>
-        {% endfor %}
-      </div>
-    {% endif %}
+        <form method="post" class="auth-form">
+            {% csrf_token %}
 
-    <label for="first_name">First Name:</label>
-    <input type="text" name="first_name" id="first_name" required />
-    <br />
+            {% if form.errors %}
+                <div class="error-messages">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-    <label for="last_name">Last Name:</label>
-    <input type="text" name="last_name" id="last_name" required />
-    <br />
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" name="first_name" id="first_name" placeholder="First name" required />
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" name="last_name" id="last_name" placeholder="Last name" required />
+                </div>
+            </div>
 
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required />
-    <br />
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Username" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email address" required />
+                </div>
+            </div>
 
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" required />
-    <br />
+            <div class="form-group">
+                <label for="password1">Password</label>
+                <input type="password" name="password1" id="password1" placeholder="Create password" required />
+            </div>
 
-    <label for="password1">Password:</label>
-    <input type="password" name="password1" id="password1" required />
-    <br />
+            <div class="form-group">
+                <label for="password2">Confirm Password</label>
+                <input type="password" name="password2" id="password2" placeholder="Confirm password" required />
+            </div>
 
-    <label for="password2">Confirm Password:</label>
-    <input type="password" name="password2" id="password2" required />
-    <br />
+            <button type="submit" class="auth-button">Create Account</button>
+        </form>
 
-    <button type="submit">Sign Up</button>
-  </form>
+        <div class="auth-link">
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+    </div>
+</div>
 {% endblock %}
