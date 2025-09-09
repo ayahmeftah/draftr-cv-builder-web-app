@@ -34,6 +34,8 @@ class Resume(models.Model):
     additional_link_name = models.CharField(max_length=100, null=True, blank=True)
     additional_link = models.URLField(null=True, blank=True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         db_table = "resumes"
 
