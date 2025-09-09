@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block head %} {% endblock %}
+{% block head %} 
+<link rel="stylesheet" href="{% static 'css/template_list.css' %}">
+<title>Templates</title>
+{% endblock %}
 
 {% block body %}
-<h1>Select a CV Template</h1>
-<div class="template-grid">
-    {% for template in templates %}
-        <div class="template-card">
-            <img src="{{ template.preview_image.url }}" alt="{{ template.template_name }}" width="200">
-            <p>{{ template.template_name }}</p>
-            <a href="{% url 'select_template' template.id %}">Use this Template</a>
-        </div>
-    {% endfor %}
+<div class="template-list-container">
+    <h1 class="template-list-title">Choose  a  Template</h1>
+    <div class="template-row">
+        {% for template in templates %}
+        <a href="{% url 'select_template' template.id %}" class="template-card">
+            <img src="{{ template.preview_image.url }}" alt="{{ template.template_name }}">
+            <div class="template-overlay">
+                <h2>{{ template.template_name }}</h2>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 </div>
-
 {% endblock %}
