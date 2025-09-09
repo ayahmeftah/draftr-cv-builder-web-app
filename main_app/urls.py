@@ -48,4 +48,5 @@ urlpatterns = [
     path("resumes/<int:resume_id>/certifications/<int:certification_id>/delete/", views.CertificationDeleteView.as_view(), name="certification_delete"),
 
     path("resume/<int:resume_id>/loader/", views.ResumeLoaderView.as_view(), name="resume_loader"),
+    path('my-resumes/', views.UserResumesView.as_view(), name='user_resumes'),
 ]
