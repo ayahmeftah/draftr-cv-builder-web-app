@@ -59,6 +59,11 @@ class PersonalInfoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         resume = self.get_object()
         return resume.user == self.request.user
+    
+    def form_valid(self, form):
+        if 'candidate_image' not in self.request.FILES:
+            form.instance.candidate_image = self.get_object().candidate_image
+        return super().form_valid(form)
 
 class ResumePreviewView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = models.Resume

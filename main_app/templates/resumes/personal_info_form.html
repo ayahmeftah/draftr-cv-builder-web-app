@@ -4,7 +4,7 @@
 {% block head %}
     <link rel="stylesheet" href="{% static "css/progress.css" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Personal Info</title>
+    <title>Personal Info - Draftr</title>
 {% endblock %}
 
 {% block body %}
@@ -53,21 +53,31 @@
         
         <h1>Personal Information</h1>
         
-        <label for="candidate_name">Full Name:</label>
-        <input type="text" id="candidate_name" name="candidate_name" value="{{ form.candidate_name.value|default_if_none:'' }}" required>
+        
 
         <div class="form-row">
+            <div class="form-group">
+                <label for="candidate_name">Full Name:</label>
+        <input type="text" id="candidate_name" name="candidate_name" value="{{ form.candidate_name.value|default_if_none:'' }}" required>
+            </div>
             <div class="form-group">
                 <label for="job_title">Job Title:</label>
                 <input type="text" id="job_title" name="job_title" value="{{ form.job_title.value|default_if_none:'' }}" required>
             </div>
-            {% if resume.template.candidate_img_available %}
+        </div>
+        {% if resume.template.candidate_img_available %}
             <div class="form-group">
-                <label for="candidate_image">Applicant Image:</label>
-                <input type="file" id="candidate_image" name="candidate_image" value="{{ form.candidate_image.url|default_if_none:'' }}" required>
+                <div class="file-input-container">
+                    <label for="candidate_image">Applicant Image:</label>
+                    <input type="file" id="candidate_image" name="candidate_image" accept="image/*" {% if not resume.candidate_image %}required{% endif %}>
+                    
+                    {% if resume.candidate_image %}
+                    <span class="current-filename">Current file: {{ resume.candidate_image.name|cut:"candidates/" }}</span>
+                    <p class="file-note">Leave empty to keep the current image</p>
+                    {% endif %}
+                </div>
             </div>
             {% endif %}
-        </div>
 
         <label for="profile">Profile Summary:</label>
         <textarea id="profile" name="profile">{{ form.profile.value|default_if_none:'' }}</textarea>

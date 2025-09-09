@@ -40,6 +40,11 @@ class ResumePersonalForm(forms.ModelForm):
             'location', 'email', 'mobile', 'linkedin_link',
             'additional_link_name', 'additional_link'
         ]
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields['candidate_image'].required = False
 
 class EducationForm(forms.ModelForm):
     class Meta:
