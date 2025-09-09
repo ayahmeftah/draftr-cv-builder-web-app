@@ -508,7 +508,7 @@ class UserResumesView(LoginRequiredMixin, ListView):
     context_object_name = "resumes"
 
     def get_queryset(self):
-        return models.Resume.objects.filter(user=self.request.user).order_by('-id')
+        return models.Resume.objects.filter(user=self.request.user).order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
