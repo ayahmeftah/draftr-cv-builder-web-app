@@ -1,21 +1,33 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/resume_preview.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<title>{{ resume.resume_name }} - Preview - Draftr</title>
 {% endblock %}
 
 {% block body %}
 <div class="resume-preview-container">
+    <div class="resume-header">
+        <h1 class="resume-title">{{ resume.resume_name|default:"My Resume" }}</h1>
+    </div>
 
     <div class="resume-actions">
-        <a href="{% url 'resume_personal_info' resume.id %}">Edit</a>
-        <a href="?download=1">Download PDF</a>
-        <form method="post" action="{% url 'resume_delete' resume.id %}">
+        <a href="{% url 'resume_personal_info' resume.id %}" class="action-button edit">
+            <i class="fas fa-edit" style="margin-right: 8px;"></i>Edit
+        </a>
+        <a href="?download=1" class="action-button download">
+            <i class="fas fa-download" style="margin-right: 8px;"></i>Download PDF
+        </a>
+        <form method="post" action="{% url 'resume_delete' resume.id %}" style="display: inline;">
             {% csrf_token %}
-            <button type="submit">Delete</button>
+            <button type="submit" class="action-button delete">
+                <i class="fas fa-trash" style="margin-right: 8px;"></i>Delete
+            </button>
         </form>
     </div>
 
     {% include resume.template.template_path %}
-
 </div>
 {% endblock %}
