@@ -1,45 +1,67 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
+  <link rel="stylesheet" href="{% static "css/forms.css" %}">
+  <script src="{% static "js/endDateDisable.js" %}"></script>
 {% endblock %}
 
 {% block body %}
-  <h2>
-    {% if education %}
-      Edit Education
-    {% else %}
-      Add Education
-    {% endif %}
-  </h2>
+<div class="form-container">
+    <div class="form-card">
+        <h2>
+            {% if education %}
+                Edit Education
+            {% else %}
+                Add Education
+            {% endif %}
+        </h2>
 
-  <form method="post">
-    {% csrf_token %}
+        <form method="post">
+            {% csrf_token %}
 
-    <label>School:</label>
-    <input type="text" name="school" value="{{ form.school.value|default_if_none:'' }}" />
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="degree">Degree:</label>
+                    <input type="text" id="degree" name="degree" value="{{ form.degree.value|default_if_none:'' }}" required />
+                </div>
+                <div class="form-group">
+                    <label for="school">School:</label>
+                    <input type="text" id="school" name="school" value="{{ form.school.value|default_if_none:'' }}" required />
+                </div>
+            </div>
 
-    <label>Degree:</label>
-    <input type="text" name="degree" value="{{ form.degree.value|default_if_none:'' }}" />
+            <div class="date-checkbox-row">
+                <div class="date-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ form.start_date.value|date:'Y-m-d'|default_if_none:'' }}" required />
+                </div>
+                <div class="date-group">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" value="{{ form.end_date.value|date:'Y-m-d'|default_if_none:'' }}" {% if form.is_current.value %}disabled{% endif %} />
+                </div>
+                <div class="current-checkbox">
+                    <input type="checkbox" id="is_current" name="is_current" {% if form.is_current.value %}checked{% endif %} />
+                    <label for="is_current">Currently Studying Here</label>
+                </div>
+            </div>
 
-    <label>Start Date:</label>
-    <input type="date" name="start_date" value="{{ form.start_date.value|date:'Y-m-d'|default_if_none:'' }}" />
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description">{{ form.description.value|default_if_none:'' }}</textarea>
+            </div>
 
-    <label>End Date:</label>
-    <input type="date" name="end_date" value="{{ form.end_date.value|date:'Y-m-d'|default_if_none:'' }}" />
-
-    <label>Currently Studying Here:</label> 
-    <input type="checkbox" name="is_current" {% if form.is_current.value %}checked{% endif %} />
-
-    <label>Description:</label>
-    <textarea name="description">{{ form.description.value|default_if_none:'' }}</textarea>
-
-    <button type="submit">
-      {% if education %}
-        Save Education
-      {% else %}
-        Add Education
-      {% endif %}
-    </button>
-    <a href="{% url 'education_list' resume.id %}">Cancel</a>
-  </form>
+            <div class="form-button-container">
+                <a href="{% url 'education_list' resume.id %}" class="cancel-button">Cancel</a>
+                <button type="submit">
+                    {% if education %}
+                        Save Education
+                    {% else %}
+                        Add Education
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
