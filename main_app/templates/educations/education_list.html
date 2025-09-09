@@ -1,35 +1,87 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
+  <link rel="stylesheet" href="{% static "css/progress.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 {% endblock %}
 
 {% block body %}
-  <h2>Education</h2>
+<div class="progress-container">
+    <div class="progress-line"></div>
+    <div class="progress-line-active" style="width: 20%;"></div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Personal Info</div>
+    </div>
+    
+    <div class="progress-step active">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Education</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Experience</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Skills</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Projects</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Certifications</div>
+    </div>
+</div>
 
-  <a href="{% url 'education_add' resume.id %}">Add Education</a>
+<div class="form-card">
+    <div class="list-header">
+        <h2>Education</h2>
+        <a href="{% url 'education_add' resume.id %}" class="add-button"> + Add Education</a>
+    </div>
 
-  <ul>
     {% for edu in educations %}
-      <li>
-        {{ edu.degree }} at {{ edu.school }}
-        ({{ edu.start_date|date:'Y' }} –{% if edu.is_current %}
-          Present
-        {% else %}
-          {{ edu.end_date|date:'Y' }}
-        {% endif %})
-        <form method="post" action="{% url 'education_delete' resume.id edu.id %}">
-          {% csrf_token %}
-          <button type="submit">Delete</button>
-        </form>
-        <a href="{% url 'education_edit' resume.id edu.id %}">Edit</a>
-      </li>
+    <div class="education-card">
+        <div class="education-card-header">
+            <div>
+                <h3 class="education-card-title">{{ edu.degree }}</h3>
+                <p class="education-card-institution">{{ edu.school }}</p>
+                <p class="education-card-period">
+                    {{ edu.start_date|date:'Y' }} – 
+                    {% if edu.is_current %}Present{% else %}{{ edu.end_date|date:'Y' }}{% endif %}
+                </p>
+                {% if edu.description %}
+                <p class="education-card-description">{{ edu.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-actions">
+            <a href="{% url 'education_edit' resume.id edu.id %}" class="edit-button">
+                <i class="fas fa-edit"></i>
+            </a>
+            <form method="post" action="{% url 'education_delete' resume.id edu.id %}">
+                {% csrf_token %}
+                <button type="submit" class="delete-button">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
+        </div>
+    </div>
     {% empty %}
-      <li>No education added yet.</li>
+    <p>No education added yet</p>
     {% endfor %}
-  </ul>
 
-  <div>
-    <a href="{% url 'resume_personal_info' resume.id %}">Back</a>
-    <a href="{% url 'experience_list' resume.id %}">Next</a>
-  </div>
+    <div class="navigation-buttons">
+        <a href="{% url 'resume_personal_info' resume.id %}" class="nav-button back">Back</a>
+        <a href="{% url 'experience_list' resume.id %}" class="nav-button next">Next</a>
+    </div>
+</div>
 {% endblock %}

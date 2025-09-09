@@ -1,47 +1,108 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/progress.css" %}">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
 
 {% block body %}
-<h1>Create Your Resume</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-
-    <label for="resume_name">Resume Name:</label>
-    <input type="text" id="resume_name" name="resume_name" value="{{ form.resume_name.value|default_if_none:'' }}" required>
+<div class="progress-container">
+    <div class="progress-line"></div>
+    <div class="progress-line-active" style="width: 0%;"></div>
     
-    <h1>Personal Information</h1>
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Personal Info</div>
+    </div>
     
-    <label for="candidate_name">Full Name:</label>
-    <input type="text" id="candidate_name" name="candidate_name" value="{{ form.candidate_name.value|default_if_none:'' }}" required>
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Education</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Experience</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Skills</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Projects</div>
+    </div>
+    
+    <div class="progress-step">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Certifications</div>
+    </div>
+</div>
 
-    <label for="job_title">Job Title:</label>
-    <input type="text" id="job_title" name="job_title" value="{{ form.job_title.value|default_if_none:'' }}" required>
+<div class="form-card">
+    <h1>Create Your Resume</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-    {% if resume.template.candidate_img_available %}
-        <label for="candidate_image">Applicant Image:</label>
-        <input type="file" id="candidate_image" name="candidate_image" required>
-    {% endif %}
+        <label for="resume_name">Resume Name:</label>
+        <input type="text" id="resume_name" name="resume_name" value="{{ form.resume_name.value|default_if_none:'' }}" required>
+        
+        <h1>Personal Information</h1>
+        
+        <label for="candidate_name">Full Name:</label>
+        <input type="text" id="candidate_name" name="candidate_name" value="{{ form.candidate_name.value|default_if_none:'' }}" required>
 
-    <label for="profile">Profile Summary:</label>
-    <textarea id="profile" name="profile">{{ form.profile.value|default_if_none:'' }}</textarea>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="job_title">Job Title:</label>
+                <input type="text" id="job_title" name="job_title" value="{{ form.job_title.value|default_if_none:'' }}" required>
+            </div>
+            {% if resume.template.candidate_img_available %}
+            <div class="form-group">
+                <label for="candidate_image">Applicant Image:</label>
+                <input type="file" id="candidate_image" name="candidate_image" value="{{ form.candidate_image.url|default_if_none:'' }}" required>
+            </div>
+            {% endif %}
+        </div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="{{ form.email.value|default_if_none:'' }}">
+        <label for="profile">Profile Summary:</label>
+        <textarea id="profile" name="profile">{{ form.profile.value|default_if_none:'' }}</textarea>
 
-    <label for="mobile">Mobile:</label>
-    <input type="text" id="mobile" name="mobile" value="{{ form.mobile.value|default_if_none:'' }}">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ form.email.value|default_if_none:'' }}">
 
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location" value="{{ form.location.value|default_if_none:'' }}">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="mobile">Mobile:</label>
+                <input type="text" id="mobile" name="mobile" value="{{ form.mobile.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" value="{{ form.location.value|default_if_none:'' }}">
+            </div>
+        </div>
 
-    <label for="linkedin_link">LinkedIn URL:</label>
-    <input type="url" id="linkedin_link" name="linkedin_link" value="{{ form.linkedin_link.value|default_if_none:'' }}">
+        <label for="linkedin_link">LinkedIn URL:</label>
+        <input type="url" id="linkedin_link" name="linkedin_link" value="{{ form.linkedin_link.value|default_if_none:'' }}">
 
-    <label for="additional_link_name">Additional Link Name:</label>
-    <input type="text" id="additional_link_name" name="additional_link_name" value="{{ form.additional_link_name.value|default_if_none:'' }}">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="additional_link_name">Additional Link Name:</label>
+                <input type="text" id="additional_link_name" name="additional_link_name" value="{{ form.additional_link_name.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="additional_link">Additional Link URL:</label>
+                <input type="url" id="additional_link" name="additional_link" value="{{ form.additional_link.value|default_if_none:'' }}">
+            </div>
+        </div>
 
-    <label for="additional_link">Additional Link URL:</label>
-    <input type="url" id="additional_link" name="additional_link" value="{{ form.additional_link.value|default_if_none:'' }}">
-
-    <button type="submit">Next</button>
-</form>
-{% endblock  %}
+        <div class="form-button-container">
+            <button type="submit">Next</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
