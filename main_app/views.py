@@ -108,7 +108,7 @@ class ResumeDeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
     def post(self, request, resume_id):
         resume = get_object_or_404(models.Resume, id=resume_id, user=request.user)
         resume.delete()
-        return redirect('template_list')
+        return redirect('user_resumes')
 
     def test_func(self):
         resume = get_object_or_404(models.Resume, id=self.kwargs['resume_id'])
