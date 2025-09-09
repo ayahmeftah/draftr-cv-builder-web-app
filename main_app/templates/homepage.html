@@ -1,8 +1,115 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
+  <link rel="stylesheet" href="{% static "css/homepage.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Draftr - Home</title>
 {% endblock %}
 
 {% block body %}
-    <h1>Home</h1>
-{% endblock%}
+<section class="hero">
+  <div class="hero-content">
+    <h1>Get dream jobs with our professional resume builder</h1>
+    <p class="hero-subtitle">Build a professional and outstanding resume with our free builder and templates.</p>
+    <div class="hero-buttons">
+      <a href="{% url 'template_list' %}" class="cta-button primary">Create my resume</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="resume-preview">
+      <div class="resume-header">
+        <h3>Your Resume</h3>
+        <p>email@example.com | +973 3123 3123</p>
+      </div>
+      <div class="resume-section">
+        <h4>Work Experience</h4>
+        <div class="experience-item">
+          <p class="company">Company A | Manama, BH</p>
+          <p class="role">Business Development Manager | Jan 2022 - Present</p>
+          <ul>
+            <li>Develop new marketing and business plans that grow portfolio by $50m annually</li>
+            <li>Oversee team of 7 reports: 2 managers and 3 individual contributors</li>
+            <li>Manage vendor relationships, local pipeline, and direct marketing sales campaigns</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="container">
+    <h2>The Best Online <span class="highlight">Resume Builder</span></h2>
+    <p class="stats-subtitle">Easily create a resume with our best-in-class resume builder platform.</p>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">↑</div>
+        <div class="stat-number">38%</div>
+        <div class="stat-label">more interviews</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">↑</div>
+        <div class="stat-number">23%</div>
+        <div class="stat-label">more likely to get a job offer</div>
+      </div>
+    </div>
+
+    <div class="cta-center">
+      <a href="{% url 'template_list' %}" class="cta-button primary large">Create My Resume Now</a>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <h2>Why Choose Draftr?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-paint-brush"></i>
+        </div>
+        <h3>Professional Templates</h3>
+        <p>Choose ATS-friendly templates designed by experts</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <h3>Quick & Easy</h3>
+        <p>Build a professional resume in minutes, not hours</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <h3>Export Options</h3>
+        <p>Download your resume as PDF and share it</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="companies-section">
+  <div class="container">
+    <h3>Our users have been hired by top companies</h3>
+    <div class="companies-grid">
+      <span class="company-logo">Google</span>
+      <span class="company-logo">Amazon</span>
+      <span class="company-logo">Microsoft</span>
+      <span class="company-logo">Apple</span>
+      <span class="company-logo">Netflix</span>
+      <span class="company-logo">Facebook</span>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container">
+    <h2>Ready to Land Your Dream Job?</h2>
+    <p>Start building your professional resume today - it's free!</p>
+    <a href="{% url 'template_list' %}" class="cta-button primary large">Start Building Now</a>
+  </div>
+</section>
+{% endblock %}
