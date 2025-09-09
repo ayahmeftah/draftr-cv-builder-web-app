@@ -17,10 +17,7 @@
           </li>
           {% if user.is_authenticated %}
             <li>
-              <a href="#">Resumes</a>
-            </li>
-            <li>
-              <a href="#">Jobs</a>
+              <a href="{% url 'user_resumes'%}">Resumes</a>
             </li>
           {% else %}
             <li>

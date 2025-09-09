@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f0f5ff;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 .navbar {
   position: sticky;
@@ -25,14 +25,15 @@ body {
 }
 
 .navbar-logo {
-  height: 60px;
-  margin-right: 40px;
+  height: 65px;
+  margin-left: 30px;
+  margin-right: 80px;
 }
 
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 60px;
+  gap: 130px;
   margin: 0;
   padding: 0;
 }
@@ -57,7 +58,7 @@ body {
   border: none;
   color: red;
   font-weight: bold;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin-right: 20px;
   font-weight: 500;
   font-size: 15px;
