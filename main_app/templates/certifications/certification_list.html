@@ -1,38 +1,85 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
+  <link rel="stylesheet" href="{% static "css/progress.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block body %}
-<h2>Certifications</h2>
+<div class="progress-container">
+    <div class="progress-line"></div>
+    <div class="progress-line-active" style="width: 100%;"></div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Personal Info</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Education</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Experience</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Skills</div>
+    </div>
+    
+    <div class="progress-step completed">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Projects</div>
+    </div>
+    
+    <div class="progress-step active">
+        <div class="progress-step-circle"></div>
+        <div class="progress-step-label">Certifications</div>
+    </div>
+</div>
 
-<a href="{% url 'certification_add' resume.id %}">+ Add Certification</a>
+<div class="form-card">
+    <div class="list-header">
+        <h2>Certifications</h2>
+        <a href="{% url 'certification_add' resume.id %}" class="add-button"> + Add Certification</a>
+    </div>
 
-{% if certifications %}
-  <ul>
-    {% for cert in certifications %}
-      <li>
-        <strong>{{ cert.certification_name }}</strong> — {{ cert.issued_by }}
-        {% if cert.credential_url %}
-          (<a href="{{ cert.credential_url }}" target="_blank">View Credential</a>)
-        {% endif %}
+    {% if certifications %}
+        {% for cert in certifications %}
+        <div class="certification-card">
+            <div class="certification-header">
+                <div>
+                    <h3 class="certification-title">{{ cert.certification_name }}</h3>
+                    <p class="certification-issuer">{{ cert.issued_by }}</p>
+                    {% if cert.credential_url %}
+                    <a href="{{ cert.credential_url }}" target="_blank" class="certification-link">View Credential</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-actions">
+                <a href="{% url 'certification_edit' resume.id cert.id %}" class="edit-button">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <form method="post" action="{% url 'certification_delete' resume.id cert.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-state">No certifications added yet</p>
+    {% endif %}
 
-        <a href="{% url 'certification_edit' resume.id cert.id %}">Edit</a>
-        <form method="post" action="{% url 'certification_delete' resume.id cert.id %}">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-        </form>
-        
-      </li>
-    {% endfor %}
-  
-{% else %}
-    <li>No certifications added yet.</li>
-  </ul>
-{% endif %}
-
-<div>
-  <a href="{% url 'project_list' resume.id %}">Back</a>
-  <a href="{% url 'resume_loader' resume.id %}">Next</a>
+    <div class="navigation-buttons">
+        <a href="{% url 'project_list' resume.id %}" class="nav-button back">Back</a>
+        <a href="{% url 'resume_loader' resume.id %}" class="build-resume-button">Build Resume</a>
+    </div>
 </div>
 {% endblock %}

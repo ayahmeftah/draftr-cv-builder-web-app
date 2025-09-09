@@ -530,3 +530,58 @@ form .delete-button:hover {
     margin: 10px 0 0;
     line-height: 1.5;
 }
+
+
+.certification-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.certification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.certification-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333333;
+    margin: 0;
+}
+
+.certification-issuer {
+    font-weight: 600;
+    color: #555555;
+    margin: 5px 0;
+}
+
+.certification-link {
+    color: #2196F3;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.certification-link:hover {
+    text-decoration: underline;
+}
+
+.build-resume-button {
+    background-color: #673AB7;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.build-resume-button:hover {
+    background-color: #5E35B1;
+}
