@@ -606,3 +606,7 @@ form .delete-button:hover {
     color: #666;
     margin-top: 5px;
 }
+
+.red-star {
+    color: red;
+}

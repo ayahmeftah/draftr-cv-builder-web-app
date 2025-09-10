@@ -44,11 +44,15 @@
 </div>
 
 <div class="form-card">
+    {% if resume %}
+    <h1>Edit Your Resume</h1>
+    {% else %}
     <h1>Create Your Resume</h1>
+    {% endif %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <label for="resume_name">Resume Name:</label>
+        <label for="resume_name">Resume Name<span class="red-star">*</span></label>
         <input type="text" id="resume_name" name="resume_name" value="{{ form.resume_name.value|default_if_none:'' }}" required>
         
         <h1>Personal Information</h1>
@@ -57,18 +61,18 @@
 
         <div class="form-row">
             <div class="form-group">
-                <label for="candidate_name">Full Name:</label>
+                <label for="candidate_name">Full Name<span class="red-star">*</span></label>
         <input type="text" id="candidate_name" name="candidate_name" value="{{ form.candidate_name.value|default_if_none:'' }}" required>
             </div>
             <div class="form-group">
-                <label for="job_title">Job Title:</label>
+                <label for="job_title">Job Title<span class="red-star">*</span></label>
                 <input type="text" id="job_title" name="job_title" value="{{ form.job_title.value|default_if_none:'' }}" required>
             </div>
         </div>
         {% if resume.template.candidate_img_available %}
             <div class="form-group">
                 <div class="file-input-container">
-                    <label for="candidate_image">Applicant Image:</label>
+                    <label for="candidate_image">Applicant Image<span class="red-star">*</span></label>
                     <input type="file" id="candidate_image" name="candidate_image" accept="image/*" {% if not resume.candidate_image %}required{% endif %}>
                     
                     {% if resume.candidate_image %}
@@ -79,33 +83,33 @@
             </div>
             {% endif %}
 
-        <label for="profile">Profile Summary:</label>
+        <label for="profile">Profile Summary</label>
         <textarea id="profile" name="profile">{{ form.profile.value|default_if_none:'' }}</textarea>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ form.email.value|default_if_none:'' }}">
+        <label for="email">Email<span class="red-star">*</span></label>
+        <input type="email" id="email" name="email" value="{{ form.email.value|default_if_none:'' }}" required>
 
         <div class="form-row">
             <div class="form-group">
-                <label for="mobile">Mobile:</label>
-                <input type="text" id="mobile" name="mobile" value="{{ form.mobile.value|default_if_none:'' }}">
+                <label for="mobile">Mobile<span class="red-star">*</span></label>
+                <input type="text" id="mobile" name="mobile" value="{{ form.mobile.value|default_if_none:'' }}" required>
             </div>
             <div class="form-group">
-                <label for="location">Location:</label>
+                <label for="location">Location</label>
                 <input type="text" id="location" name="location" value="{{ form.location.value|default_if_none:'' }}">
             </div>
         </div>
 
-        <label for="linkedin_link">LinkedIn URL:</label>
+        <label for="linkedin_link">LinkedIn URL</label>
         <input type="url" id="linkedin_link" name="linkedin_link" value="{{ form.linkedin_link.value|default_if_none:'' }}">
 
         <div class="form-row">
             <div class="form-group">
-                <label for="additional_link_name">Additional Link Name:</label>
+                <label for="additional_link_name">Additional Link Name</label>
                 <input type="text" id="additional_link_name" name="additional_link_name" value="{{ form.additional_link_name.value|default_if_none:'' }}">
             </div>
             <div class="form-group">
-                <label for="additional_link">Additional Link URL:</label>
+                <label for="additional_link">Additional Link URL</label>
                 <input type="url" id="additional_link" name="additional_link" value="{{ form.additional_link.value|default_if_none:'' }}">
             </div>
         </div>
