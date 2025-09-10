@@ -29,6 +29,80 @@ Below are some screenshots of the application:
 
 - **Progress Tracker** to guide users through CV creation
 
+## URL Paths  
+
+### General  
+
+| Path                                | Description                     |
+|-------------------------------------|---------------------------------|
+| `/`                                 | Home page                        |
+| `/auth/signup/`                      | User signup page                 |
+| `/resumes/templates/`                | List all resume templates        |
+| `/resumes/templates/<template_id>/` | Select a template                |
+| `/resumes/<resume_id>/personal/`    | Personal info step               |
+| `/resumes/<resume_id>/preview/`     | Preview resume                   |
+| `/resumes/<resume_id>/delete/`      | Delete resume                    |
+| `/resume/<resume_id>/loader/`       | Resume loader (async)            |
+| `/my-resumes/`                       | List all resumes for current user|
+
+---
+
+### Education  
+
+| Path                                                | Description                     |
+|-----------------------------------------------------|---------------------------------|
+| `/resumes/<resume_id>/educations/`                 | List education entries           |
+| `/resumes/<resume_id>/educations/add/`             | Add education entry              |
+| `/resumes/<resume_id>/educations/<education_id>/edit/` | Edit education entry       |
+| `/resumes/<resume_id>/educations/<education_id>/delete/` | Delete education entry     |
+
+---
+
+### Experience  
+
+| Path                                                | Description                     |
+|-----------------------------------------------------|---------------------------------|
+| `/resumes/<resume_id>/experiences/`                | List experience entries          |
+| `/resumes/<resume_id>/experiences/add/`            | Add experience entry             |
+| `/resumes/<resume_id>/experiences/<experience_id>/edit/` | Edit experience entry       |
+| `/resumes/<resume_id>/experiences/<experience_id>/delete/` | Delete experience entry     |
+
+---
+
+### Skills & Skill Categories  
+
+| Path                                                | Description                     |
+|-----------------------------------------------------|---------------------------------|
+| `/resumes/<resume_id>/skills/`                     | List all skills                  |
+| `/resumes/<resume_id>/skill-categories/add/`       | Add skill category               |
+| `/resumes/<resume_id>/skill-categories/<category_id>/edit/` | Edit skill category      |
+| `/resumes/<resume_id>/skill-categories/<category_id>/delete/` | Delete skill category    |
+| `/resumes/<resume_id>/skill-categories/<category_id>/add-skill/` | Add skill to category     |
+| `/resumes/<resume_id>/skills/<skill_id>/edit/`    | Edit skill                       |
+| `/resumes/<resume_id>/skills/<skill_id>/delete/`  | Delete skill                     |
+
+---
+
+### Projects  
+
+| Path                                                | Description                     |
+|-----------------------------------------------------|---------------------------------|
+| `/resumes/<resume_id>/projects/`                   | List projects                    |
+| `/resumes/<resume_id>/projects/add/`               | Add project                      |
+| `/resumes/<resume_id>/projects/<project_id>/edit/` | Edit project                     |
+| `/resumes/<resume_id>/projects/<project_id>/delete/` | Delete project                  |
+
+---
+
+### Certifications  
+
+| Path                                                | Description                     |
+|-----------------------------------------------------|---------------------------------|
+| `/resumes/<resume_id>/certifications/`             | List certifications              |
+| `/resumes/<resume_id>/certifications/add/`         | Add certification                |
+| `/resumes/<resume_id>/certifications/<certification_id>/edit/` | Edit certification       |
+| `/resumes/<resume_id>/certifications/<certification_id>/delete/` | Delete certification   |
+
 
 ## Getting Started
 
