@@ -10,6 +10,8 @@
     <nav class="navbar">
       <div class="navbar-left">
         <img src="{% static 'images/draftr-logo.png' %}" alt="Draftr Logo" class="navbar-logo" />
+      </div>
+      <div class="navbar-right">
         <ul class="navbar-links">
           <li>
             <a href="{% url 'homepage' %}">Home</a>
@@ -18,25 +20,22 @@
             <li>
               <a href="{% url 'user_resumes'%}">Resumes</a>
             </li>
+            <li>
+              <form action="/auth/logout/" method="post">
+            {% csrf_token %}
+            <button class="logout-btn">Logout</button>
+          </form>
+            </li>
           {% else %}
             <li>
               <a href="{% url 'signup' %}">Sign Up</a>
             </li>
             <li>
-              <a href="{% url 'login' %}">Login</a>
+              <a href="{% url 'login' %}" class="login-link">Login</a>
             </li>
           {% endif %}
         </ul>
       </div>
-
-      {% if user.is_authenticated %}
-        <div class="navbar-right">
-          <form action="/auth/logout/" method="post">
-            {% csrf_token %}
-            <button class="logout-btn">Logout</button>
-          </form>
-        </div>
-      {% endif %}
     </nav>
 
     {% block head %}

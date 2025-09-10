@@ -33,7 +33,7 @@ body {
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 130px;
+  gap: 95px;
   margin: 0;
   padding: 0;
 }
@@ -42,6 +42,7 @@ body {
   text-decoration: none;
   color: #333333;
   font-weight: 500;
+  font-weight: bold;
 }
 
 .navbar-links li a:hover {
@@ -59,11 +60,17 @@ body {
   color: red;
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
-  margin-right: 20px;
-  font-weight: 500;
+  margin-right: 50px;
+  margin-left: 3px;
   font-size: 15px;
+  font-weight: bold;
 }
 
 .logout-btn:hover {
   text-decoration: underline;
+}
+
+.login-link {
+  margin-right: 50px;
+  margin-left: 15px;
 }
