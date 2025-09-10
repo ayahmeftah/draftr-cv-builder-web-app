@@ -8,6 +8,12 @@ Users can choose from different CV templates, manage multiple resumes, and custo
 
 Below are some screenshots of the application:
 
+<img width="1898" height="905" alt="Image" src="https://github.com/user-attachments/assets/c0ad886f-fead-4a3d-bc69-f940995940bd" />
+
+<img width="1897" height="898" alt="Image" src="https://github.com/user-attachments/assets/02a6568a-c423-47f9-b4a8-714b442a162b" />
+
+<img width="1896" height="906" alt="Image" src="https://github.com/user-attachments/assets/623764fc-a15e-486b-9e74-592a1a1efe0f" />
+
 ## Entity-Relationship Diagram (ERD)
 
 <img width="1619" height="880" alt="Draftr ERD" src="https://github.com/user-attachments/assets/f01fec1b-7ea1-4c1f-993f-b6f1d398b084" />
