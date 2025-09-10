@@ -4,6 +4,13 @@
 {% block head %}
   <link rel="stylesheet" href="{% static "css/forms.css" %}">
   <script src="{% static "js/endDateDisable.js" %}"></script>
+  <title>
+    {% if education %}
+        Edit Education
+    {% else %}
+        Add Education
+    {% endif %}
+  </title>
 {% endblock %}
 
 {% block body %}
@@ -22,22 +29,22 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="degree">Degree:</label>
+                    <label for="degree">Degree<span class="red-star">*</span></label>
                     <input type="text" id="degree" name="degree" value="{{ form.degree.value|default_if_none:'' }}" required />
                 </div>
                 <div class="form-group">
-                    <label for="school">School:</label>
+                    <label for="school">School<span class="red-star">*</span></label>
                     <input type="text" id="school" name="school" value="{{ form.school.value|default_if_none:'' }}" required />
                 </div>
             </div>
 
             <div class="date-checkbox-row">
                 <div class="date-group">
-                    <label for="start_date">Start Date:</label>
+                    <label for="start_date">Start Date<span class="red-star">*</span></label>
                     <input type="date" id="start_date" name="start_date" value="{{ form.start_date.value|date:'Y-m-d'|default_if_none:'' }}" required />
                 </div>
                 <div class="date-group">
-                    <label for="end_date">End Date:</label>
+                    <label for="end_date">End Date</label>
                     <input type="date" id="end_date" name="end_date" value="{{ form.end_date.value|date:'Y-m-d'|default_if_none:'' }}" {% if form.is_current.value %}disabled{% endif %} />
                 </div>
                 <div class="current-checkbox">
@@ -47,7 +54,7 @@
             </div>
 
             <div class="form-group">
-                <label for="description">Description:</label>
+                <label for="description">Description</label>
                 <textarea id="description" name="description">{{ form.description.value|default_if_none:'' }}</textarea>
             </div>
 
