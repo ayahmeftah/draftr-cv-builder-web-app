@@ -39,10 +39,10 @@ Below are some screenshots of the application:
 | `/auth/signup/`                      | User signup page                 |
 | `/resumes/templates/`                | List all resume templates        |
 | `/resumes/templates/<template_id>/` | Select a template                |
-| `/resumes/<resume_id>/personal/`    | Personal info step               |
+| `/resumes/<resume_id>/personal/`    | Personal info step / Edit        |
 | `/resumes/<resume_id>/preview/`     | Preview resume                   |
 | `/resumes/<resume_id>/delete/`      | Delete resume                    |
-| `/resume/<resume_id>/loader/`       | Resume loader (async)            |
+| `/resume/<resume_id>/loader/`       | Resume loader                    |
 | `/my-resumes/`                       | List all resumes for current user|
 
 ---
