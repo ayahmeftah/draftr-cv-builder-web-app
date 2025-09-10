@@ -3,6 +3,13 @@
 
 {% block head %}
   <link rel="stylesheet" href="{% static "css/forms.css" %}">
+  <title>
+    {% if certification %}
+        Edit Certification
+    {% else %}
+        Add Certification
+    {% endif %}
+  </title>
 {% endblock %}
 
 {% block body %}
@@ -21,17 +28,17 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="certification_name">Certification Name:</label>
+                    <label for="certification_name">Certification Name<span class="red-star">*</span></label>
                     <input type="text" name="certification_name" id="certification_name" value="{{ form.certification_name.value|default_if_none:'' }}" required />
                 </div>
                 <div class="form-group">
-                    <label for="issued_by">Issued By:</label>
+                    <label for="issued_by">Issued By<span class="red-star">*</span></label>
                     <input type="text" name="issued_by" id="issued_by" value="{{ form.issued_by.value|default_if_none:'' }}" required />
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="credential_url">Credential URL:</label>
+                <label for="credential_url">Credential URL</label>
                 <input type="url" name="credential_url" id="credential_url" value="{{ form.credential_url.value|default_if_none:'' }}" />
             </div>
 
