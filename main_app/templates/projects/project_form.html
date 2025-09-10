@@ -3,6 +3,13 @@
 
 {% block head %}
   <link rel="stylesheet" href="{% static "css/forms.css" %}">
+  <title>
+    {% if project %}
+        Edit Project
+    {% else %}
+        Add Project
+    {% endif %} 
+  </title>
 {% endblock %}
 
 {% block body %}
@@ -20,17 +27,17 @@
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="id_project_title">Project Title:</label>
+                <label for="id_project_title">Project Title<span class="red-star">*</span></label>
                 <input type="text" name="project_title" id="id_project_title" value="{{ form.project_title.value|default_if_none:'' }}" required />
             </div>
 
             <div class="form-group">
-                <label for="id_project_description">Description:</label>
+                <label for="id_project_description">Description</label>
                 <textarea name="project_description" id="id_project_description">{{ form.project_description.value|default_if_none:'' }}</textarea>
             </div>
 
             <div class="form-group">
-                <label for="id_project_link">Project Link:</label>
+                <label for="id_project_link">Project Link</label>
                 <input type="url" name="project_link" id="id_project_link" value="{{ form.project_link.value|default_if_none:'' }}" />
             </div>
 

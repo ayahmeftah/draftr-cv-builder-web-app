@@ -3,6 +3,13 @@
 
 {% block head %}
   <link rel="stylesheet" href="{% static "css/forms.css" %}">
+  <title>
+    {% if category %}
+        Edit Skill Category
+    {% else %}
+        Add Skill Category
+    {% endif %}
+  </title>
 {% endblock %}
 
 {% block body %}
@@ -20,7 +27,7 @@
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="skill_category_title">Category Title:</label>
+                <label for="skill_category_title">Category Title<span class="red-star">*</span></label>
                 <input type="text" id="skill_category_title" name="skill_category_title" value="{{ form.skill_category_title.value|default_if_none:'' }}" required />
             </div>
 
