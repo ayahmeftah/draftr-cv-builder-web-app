@@ -201,6 +201,8 @@ python manage.py runserver
 
 - [Brandmark Logo Generator](https://app.brandmark.io/v3/)
 
+- [Font Awesome for icons](https://fontawesome.com/icons)
+
 
 ## Technologies Used
 

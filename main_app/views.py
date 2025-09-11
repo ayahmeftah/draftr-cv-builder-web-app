@@ -40,7 +40,7 @@ def select_template(request, template_id):
         user=request.user,
         template=template,
         resume_name="",
-        candidate_name="",
+        candidate_name=f"{request.user.first_name} {request.user.last_name}",
         email=request.user.email,
         mobile="")
 
